@@ -258,6 +258,8 @@ namespace AdekoDesigner
 
                 LoadGroupLst(libFolderName);
 
+                splashScreenManager1.ShowWaitForm();
+
                 if (defGroupList.Count > 0)
                 {
                     foreach (var defGroup in defGroupList)
@@ -271,6 +273,8 @@ namespace AdekoDesigner
                     gridControl2.DataSource = adekoModuleList_canRead;
                     gridControl2.RefreshDataSource();
                 }
+
+                splashScreenManager1.CloseWaitForm();
             }
         }
 
@@ -317,118 +321,95 @@ namespace AdekoDesigner
                 return;
             }
 
-
-            string line = "";
             int rowNo = 0;
             bool canRead  = false;
 
             try
             {
-                int lineCount = File.ReadLines(defFilePath).Count();
+                string[] lines = File.ReadAllLines(defFilePath, Encoding.GetEncoding("windows-1254")); // Tüm dosyayı okuyun
+                rowNo = 0;
 
-                using (StreamReader reader = new StreamReader(defFilePath, Encoding.GetEncoding("windows-1254")))
+                foreach (var line in lines)
                 {
-                    while ((line = reader.ReadLine()) != null)
+                    rowNo++;
+                    AdekoModule adekoModule = ParseLine(line, defGroup, rowNo);
+
+                    if (adekoModule != null)
                     {
-                        //Console.WriteLine($"Line {rowNo + 1}: {line}"); // Log the line before processing
-
-                        rowNo++;
-
-                        try
-                        {
-                            canRead = true;
-                            // Satırın başlangıç ve bitişindeki parantezleri kaldır
-                            line = line.Trim().Trim('(', ')');
-
-                            // Tırnak işaretlerini dikkate alarak ayır
-                            List<string> parts = SplitWithQuotes(line);
-
-                            string code = "";
-                            if (parts.Count < 4) canRead = false; // Geçersiz satır
-                            else code = parts[0].Trim('"');
-                            if (code == ".") canRead = false;// Geçersiz satır
-
-                            if (canRead)
-                            {
-                                string dt1 = parts[1].Trim('"');
-
-                                string keyCode = parts[parts.Count - 2].Trim('"');
-                                string description = parts[parts.Count - 1].Trim('"');
-
-                                // Dinamik alanlar
-                                int startIndex = 5;
-                                int count = Math.Max(0, parts.Count - startIndex); // Ensure count is not negative
-                                List<string> dynamicData = parts.GetRange(startIndex, count);
-                                //List<string> dynamicData = parts.GetRange(5, parts.Count - 4);
-                                string dynamicDataString = string.Join(" ", dynamicData);
-
-                                // Genişlik, yükseklik ve derinlik bilgilerini ayıkla
-                                decimal? width = ParseDecimal(parts.ElementAtOrDefault(2));
-                                decimal? height = ParseDecimal(parts.ElementAtOrDefault(3));
-                                decimal? depth = ParseDecimal(parts.ElementAtOrDefault(4));
-
-                                // Modülü oluştur ve listeye ekle
-                                AdekoModule adekoModule = new AdekoModule
-                                {
-                                    canRead = true,
-                                    SelectModule = "Modül Seç ->",
-                                    Code = code,
-                                    Group = defGroup.name,
-                                    Dt1 = dt1,
-                                    Width = width,
-                                    Height = height,
-                                    Depth = depth,
-                                    RootCode = keyCode,
-                                    Description = description,
-                                    //DynamicData = dynamicData,
-                                    LibFolderName = libFolderName,
-                                    FileName = defGroup.code,
-                                    FileRowNo = rowNo,
-                                    IsUpdated = false,
-                                    OriginalDataLine = line,
-                                    DynamicDataString = dynamicDataString
-                                };
-                                adekoModuleList.Add(adekoModule);
-                            }
-                            else
-                            {
-                                // Modülü oluştur ve listeye ekle
-                                AdekoModule adekoModule = new AdekoModule
-                                {
-                                    canRead = false,
-                                    Group = defGroup.name,
-                                    FileName = defGroup.code,
-                                    FileRowNo = rowNo,
-                                    OriginalDataLine = line
-                                };
-                                adekoModuleList.Add(adekoModule);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Modülü oluştur ve listeye ekle
-                            AdekoModule adekoModule = new AdekoModule
-                            {
-                                canRead = false,
-                                Group = defGroup.name,
-                                FileName = defGroup.code,
-                                FileRowNo = rowNo,
-                                OriginalDataLine = line
-                            };
-                            adekoModuleList.Add(adekoModule);
-                        }
-                        
-
+                        adekoModuleList.Add(adekoModule);
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"Beklenmeyen bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                
+                // Hata loglama veya işlem
             }
+        }
+
+        private AdekoModule ParseLine(string line, DefGroup defGroup, int rowNo)
+        {
+            try
+            {
+                // Satırı düzenle
+                line = line.Trim().Trim('(', ')');
+                List<string> parts = SplitWithQuotes(line);
+
+                if (parts.Count < 4 || parts[0].Trim('"') == ".") // Geçersiz satır
+                    return CreateInvalidModule(defGroup, rowNo, line);
+
+                // Verileri ayıkla
+                string code = parts[0].Trim('"');
+                string dt1 = parts[1].Trim('"');
+                string keyCode = parts[parts.Count - 2].Trim('"');
+                string description = parts[parts.Count - 1].Trim('"');
+
+                // Dinamik verileri ayıkla
+                int startIndex = 5;
+                int count = Math.Max(0, parts.Count - startIndex);
+                string dynamicDataString = string.Join(" ", parts.Skip(startIndex));
+
+                // Genişlik, yükseklik ve derinlik
+                decimal? width = ParseDecimal(parts.ElementAtOrDefault(2));
+                decimal? height = ParseDecimal(parts.ElementAtOrDefault(3));
+                decimal? depth = ParseDecimal(parts.ElementAtOrDefault(4));
+
+                // Modülü oluştur
+                return new AdekoModule
+                {
+                    canRead = true,
+                    SelectModule = "Modül Seç ->",
+                    Code = code,
+                    Group = defGroup.name,
+                    Dt1 = dt1,
+                    Width = width,
+                    Height = height,
+                    Depth = depth,
+                    RootCode = keyCode,
+                    Description = description,
+                    LibFolderName = defGroup.name,
+                    FileName = defGroup.code,
+                    FileRowNo = rowNo,
+                    IsUpdated = false,
+                    OriginalDataLine = line,
+                    DynamicDataString = dynamicDataString
+                };
+            }
+            catch
+            {
+                return CreateInvalidModule(defGroup, rowNo, line);
+            }
+        }
+
+        private AdekoModule CreateInvalidModule(DefGroup defGroup, int rowNo, string line)
+        {
+            return new AdekoModule
+            {
+                canRead = false,
+                Group = defGroup.name,
+                FileName = defGroup.code,
+                FileRowNo = rowNo,
+                OriginalDataLine = line
+            };
         }
 
         // Decimal parse etmek için yardımcı fonksiyon

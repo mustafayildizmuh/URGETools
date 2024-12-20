@@ -1,10 +1,3 @@
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.AssemblyReference.cache
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.AdekoLib.resources
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.Form1.resources
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.Properties.Resources.resources
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.GenerateResource.cache
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.exe.licenses
-D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.CoreCompileInputs.cache
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\AdekoDesigner.exe.config
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\AdekoDesigner.exe
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\AdekoDesigner.pdb
@@ -40,6 +33,14 @@ D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\DevExpress.Pdf.v22.2.Dra
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\DevExpress.RichEdit.v22.2.Core.xml
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\DevExpress.XtraTreeList.v22.2.xml
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\bin\Debug\DevExpress.Office.v22.2.Core.xml
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.AssemblyReference.cache
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.AdekoLib.resources
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.Form1.resources
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.Properties.Resources.resources
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.WaitForm1.resources
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.GenerateResource.cache
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.exe.licenses
+D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.csproj.CoreCompileInputs.cache
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDes.40B30FAC.Up2Date
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.exe
 D:\Projects\repos\AdekoDesigner\AdekoDesigner\obj\Debug\AdekoDesigner.pdb
