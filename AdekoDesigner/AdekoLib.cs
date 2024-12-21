@@ -153,26 +153,7 @@ namespace AdekoDesigner
 
             foreach (var line in related_adekoModuleDefList)
             {
-                // OriginalDataLine ile eşleşen satırları bul
-
-                
-                var originalRow = "";
-                if (!string.IsNullOrEmpty(line.OriginalDataLine)) originalRow = "(" + line.OriginalDataLine + ")";
-
-                if (originalRow != null)
-                {
-                    if (line.IsUpdated)
-                    {
-                        // Güncellenmişse, yeni versiyonu ekle
-                        string dataLine = FormatRowData(line);
-                        newLines.Add(dataLine);
-                    }
-                    else
-                    {
-                        // Güncellenmemişse, mevcut haliyle ekle
-                        newLines.Add(originalRow);
-                    }
-                }
+                newLines.Add(FormatRowData(line));
             }
 
             return newLines;
@@ -182,8 +163,34 @@ namespace AdekoDesigner
         {
             // Örnek: Satırdaki verileri CSV formatında yaz
             //return $@"(""{row.Code}"" ""{row.Dt1}"" {row.Width} {row.Height} {row.Depth} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+            if (string.IsNullOrEmpty(row.OriginalDataLine))
+            {
+                return "";
+            }
+            else if (row.IsUpdated)
+            {
+                if (row.moduleType == ModuleType.std)
+                {
+                    return $@"(""{row.Code}"" {row.Dt1} {row.Width?.ToString("F4") ?? "0.0000"} {row.Height?.ToString("F4") ?? "0.0000"} {row.Depth?.ToString("F4") ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                }
+                else if (row.moduleType == ModuleType.korKose)
+                {
+                    return $@"(""{row.Code}"" {row.Dt1} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                }
+                else if (row.moduleType == ModuleType.diger)
+                {
+                    return $@"(""{row.Code}"" {row.Dt1} {row.DynamicDataString} ""{row.Description}"")";
+                }
+                else
+                {
+                    return "(" + row.OriginalDataLine + ")";
+                }
+            }
+            else
+            {
+                return "(" + row.OriginalDataLine + ")";
+            }
 
-            return $@"(""{row.Code}"" ""{row.Dt1}"" {row.Width?.ToString("F4") ?? "0.0000"} {row.Height?.ToString("F4") ?? "0.0000"} {row.Depth?.ToString("F4") ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
 
         }
 
@@ -194,10 +201,9 @@ namespace AdekoDesigner
             var updatedRows = new List<AdekoModule>();
             for (int i = 0; i < mList.Count; i++)
             {
-                var row = gridView2.GetRow(i) as AdekoModule;
-                if (row != null && row.IsUpdated)
+                if (mList[i].IsUpdated)
                 {
-                    updatedRows.Add(row);
+                    updatedRows.Add(mList[i]);
                 }
             }
             return updatedRows;
@@ -362,20 +368,65 @@ namespace AdekoDesigner
                     return CreateInvalidModule(defGroup, rowNo, line);
 
                 // Verileri ayıkla
-                string code = parts[0].Trim('"');
-                string dt1 = parts[1].Trim('"');
-                string keyCode = parts[parts.Count - 2].Trim('"');
-                string description = parts[parts.Count - 1].Trim('"');
+                string code = removeQuetes(parts[0].Trim('"'));
+                string dt1 = removeQuetes(parts[1].Trim('"'));
+                string keyCode = removeQuetes(parts[parts.Count - 2].Trim('"'));
+                string description = removeQuetes(parts[parts.Count - 1].Trim('"'));
 
-                // Dinamik verileri ayıkla
-                int startIndex = 5;
-                int count = Math.Max(0, parts.Count - startIndex);
-                string dynamicDataString = string.Join(" ", parts.Skip(startIndex));
+                ModuleType _moduleType;
 
                 // Genişlik, yükseklik ve derinlik
-                decimal? width = TryParseDecimal(parts.ElementAtOrDefault(2));
-                decimal? height = TryParseDecimal(parts.ElementAtOrDefault(3));
-                decimal? depth = TryParseDecimal(parts.ElementAtOrDefault(4));
+                decimal? width, height, depth ;
+                string dynamicDataString = "";
+
+                if (parts[2] == "(QUOTE") // Diğerleri
+                {
+                    _moduleType = ModuleType.diger;
+                    keyCode = "";
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 2;
+                    int count = Math.Max(0, parts.Count - startIndex - 1);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = null;
+                    height = null;
+                    depth = null;
+                }
+                else if (parts[3] == "nil") // Kör Köşe
+                {
+                    _moduleType = ModuleType.korKose;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 2;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = null;
+                    height = null;
+                    depth = null;
+                    //width = TryParseDecimal(parts.ElementAtOrDefault(7));
+                    //height = TryParseDecimal(parts.ElementAtOrDefault(8));
+                    //depth = TryParseDecimal(parts.ElementAtOrDefault(9));
+                }
+                else // std modül
+                {
+                    _moduleType = ModuleType.std;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 5;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = TryParseDecimal(parts.ElementAtOrDefault(2));
+                    height = TryParseDecimal(parts.ElementAtOrDefault(3));
+                    depth = TryParseDecimal(parts.ElementAtOrDefault(4));
+                }
+
+                
 
                 // Modülü oluştur
                 return new AdekoModule
@@ -395,7 +446,8 @@ namespace AdekoDesigner
                     FileRowNo = rowNo,
                     IsUpdated = false,
                     OriginalDataLine = line,
-                    DynamicDataString = dynamicDataString
+                    DynamicDataString = dynamicDataString,
+                    moduleType = _moduleType
                 };
                 //return null;
             }
@@ -413,7 +465,8 @@ namespace AdekoDesigner
                 Group = defGroup.name,
                 FileName = defGroup.code,
                 FileRowNo = rowNo,
-                OriginalDataLine = line
+                OriginalDataLine = line,
+                moduleType = ModuleType.tanimsiz
             };
         }
 
@@ -422,6 +475,8 @@ namespace AdekoDesigner
         {
             if (string.IsNullOrWhiteSpace(value))
                 return null;
+
+            value = removeQuetes(value);
 
             // Replace comma with dot for consistency in decimal parsing
             value = value.Replace(',', '.');
@@ -442,16 +497,21 @@ namespace AdekoDesigner
             {
                 string value = match.Value;
 
-                // Eğer çift tırnak içindeyse, tırnakları kaldır
-                if (value.StartsWith("\"") && value.EndsWith("\""))
-                {
-                    value = value.Substring(1, value.Length - 2);
-                }
-
                 result.Add(value);
             }
 
             return result;
+        }
+
+        private string removeQuetes(string value)
+        {
+            // Eğer çift tırnak içindeyse, tırnakları kaldır
+            if (value.StartsWith("\"") && value.EndsWith("\""))
+            {
+                value = value.Substring(1, value.Length - 2);
+            }
+
+            return value;
         }
 
 
@@ -481,8 +541,8 @@ namespace AdekoDesigner
                         }
                         else
                         {
-                            MessageBox.Show($"Görsel bulunamadı: {imgFilePath}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            pictureEdit1.Image = null; // Resim bulunamadığında kontrolü temizle
+                            //MessageBox.Show($"Görsel bulunamadı: {imgFilePath}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            pictureEdit1.Image = Properties.Resources.resim_yok; // Resim bulunamadığında kontrolü temizle
                         }
                     }
                 }
@@ -645,7 +705,15 @@ namespace AdekoDesigner
         public int FileRowNo { get; set; }
         public bool IsUpdated { get; set; }
         public string OriginalDataLine { get; set; } // Orijinal veri (değişmeyen kısımlar)
+        public ModuleType moduleType { get; set; }
     }
 
+    public enum ModuleType
+    {
+        tanimsiz = 0,
+        std = 1,
+        korKose = 2,
+        diger = 3
+    }
 
 }

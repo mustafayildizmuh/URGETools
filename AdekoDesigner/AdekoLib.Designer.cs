@@ -57,13 +57,13 @@
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btnExcelExport = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnResetDesigns = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::AdekoDesigner.WaitForm1), true, true);
-            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.btnExcelExport = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1.Panel1)).BeginInit();
             this.splitContainerControl1.Panel1.SuspendLayout();
@@ -245,8 +245,6 @@
             this.gridColumn16.OptionsColumn.AllowEdit = false;
             this.gridColumn16.OptionsColumn.AllowFocus = false;
             this.gridColumn16.OptionsColumn.ReadOnly = true;
-            this.gridColumn16.Visible = true;
-            this.gridColumn16.VisibleIndex = 0;
             // 
             // gridColumn2
             // 
@@ -257,7 +255,7 @@
             this.gridColumn2.OptionsColumn.AllowFocus = false;
             this.gridColumn2.OptionsColumn.ReadOnly = true;
             this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
+            this.gridColumn2.VisibleIndex = 0;
             // 
             // gridColumn3
             // 
@@ -267,7 +265,7 @@
             this.gridColumn3.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Code", "Top = {0}")});
             this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 3;
+            this.gridColumn3.VisibleIndex = 2;
             // 
             // gridColumn4
             // 
@@ -275,7 +273,7 @@
             this.gridColumn4.FieldName = "Group";
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 2;
+            this.gridColumn4.VisibleIndex = 1;
             // 
             // gridColumn5
             // 
@@ -285,8 +283,6 @@
             this.gridColumn5.OptionsColumn.AllowEdit = false;
             this.gridColumn5.OptionsColumn.AllowFocus = false;
             this.gridColumn5.OptionsColumn.ReadOnly = true;
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 9;
             // 
             // gridColumn6
             // 
@@ -294,7 +290,7 @@
             this.gridColumn6.FieldName = "Width";
             this.gridColumn6.Name = "gridColumn6";
             this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 5;
+            this.gridColumn6.VisibleIndex = 4;
             // 
             // gridColumn7
             // 
@@ -302,7 +298,7 @@
             this.gridColumn7.FieldName = "Height";
             this.gridColumn7.Name = "gridColumn7";
             this.gridColumn7.Visible = true;
-            this.gridColumn7.VisibleIndex = 6;
+            this.gridColumn7.VisibleIndex = 5;
             // 
             // gridColumn8
             // 
@@ -310,7 +306,7 @@
             this.gridColumn8.FieldName = "Depth";
             this.gridColumn8.Name = "gridColumn8";
             this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 7;
+            this.gridColumn8.VisibleIndex = 6;
             // 
             // gridColumn9
             // 
@@ -318,7 +314,7 @@
             this.gridColumn9.FieldName = "RootCode";
             this.gridColumn9.Name = "gridColumn9";
             this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 4;
+            this.gridColumn9.VisibleIndex = 3;
             // 
             // gridColumn10
             // 
@@ -326,7 +322,7 @@
             this.gridColumn10.FieldName = "Description";
             this.gridColumn10.Name = "gridColumn10";
             this.gridColumn10.Visible = true;
-            this.gridColumn10.VisibleIndex = 8;
+            this.gridColumn10.VisibleIndex = 7;
             // 
             // gridColumn11
             // 
@@ -336,8 +332,6 @@
             this.gridColumn11.OptionsColumn.AllowEdit = false;
             this.gridColumn11.OptionsColumn.AllowFocus = false;
             this.gridColumn11.OptionsColumn.ReadOnly = true;
-            this.gridColumn11.Visible = true;
-            this.gridColumn11.VisibleIndex = 12;
             // 
             // gridColumn12
             // 
@@ -345,7 +339,7 @@
             this.gridColumn12.FieldName = "LibFolderName";
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Visible = true;
-            this.gridColumn12.VisibleIndex = 10;
+            this.gridColumn12.VisibleIndex = 8;
             // 
             // gridColumn13
             // 
@@ -356,7 +350,7 @@
             this.gridColumn13.OptionsColumn.AllowFocus = false;
             this.gridColumn13.OptionsColumn.ReadOnly = true;
             this.gridColumn13.Visible = true;
-            this.gridColumn13.VisibleIndex = 11;
+            this.gridColumn13.VisibleIndex = 9;
             // 
             // gridColumn14
             // 
@@ -366,16 +360,12 @@
             this.gridColumn14.OptionsColumn.AllowEdit = false;
             this.gridColumn14.OptionsColumn.AllowFocus = false;
             this.gridColumn14.OptionsColumn.ReadOnly = true;
-            this.gridColumn14.Visible = true;
-            this.gridColumn14.VisibleIndex = 13;
             // 
             // gridColumn15
             // 
             this.gridColumn15.Caption = "FileRowNo";
             this.gridColumn15.FieldName = "FileRowNo";
             this.gridColumn15.Name = "gridColumn15";
-            this.gridColumn15.Visible = true;
-            this.gridColumn15.VisibleIndex = 14;
             // 
             // gridColumn17
             // 
@@ -385,8 +375,6 @@
             this.gridColumn17.OptionsColumn.AllowEdit = false;
             this.gridColumn17.OptionsColumn.AllowFocus = false;
             this.gridColumn17.OptionsColumn.ReadOnly = true;
-            this.gridColumn17.Visible = true;
-            this.gridColumn17.VisibleIndex = 16;
             // 
             // gridColumn18
             // 
@@ -396,8 +384,6 @@
             this.gridColumn18.OptionsColumn.AllowEdit = false;
             this.gridColumn18.OptionsColumn.AllowFocus = false;
             this.gridColumn18.OptionsColumn.ReadOnly = true;
-            this.gridColumn18.Visible = true;
-            this.gridColumn18.VisibleIndex = 15;
             // 
             // panelControl1
             // 
@@ -412,6 +398,32 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1109, 47);
             this.panelControl1.TabIndex = 1;
+            // 
+            // btnExcelExport
+            // 
+            this.btnExcelExport.Appearance.Options.UseTextOptions = true;
+            this.btnExcelExport.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.btnExcelExport.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnExcelExport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnExcelExport.ImageOptions.ImageToTextIndent = 10;
+            this.btnExcelExport.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnExcelExport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnExcelExport.ImageOptions.SvgImage")));
+            this.btnExcelExport.ImageOptions.SvgImageSize = new System.Drawing.Size(30, 30);
+            this.btnExcelExport.Location = new System.Drawing.Point(230, 2);
+            this.btnExcelExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExcelExport.Name = "btnExcelExport";
+            this.btnExcelExport.Size = new System.Drawing.Size(90, 43);
+            this.btnExcelExport.TabIndex = 7;
+            this.btnExcelExport.Text = "Excel\'e Aktar";
+            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
+            // 
+            // panelControl2
+            // 
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl2.Location = new System.Drawing.Point(206, 2);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(24, 43);
+            this.panelControl2.TabIndex = 6;
             // 
             // btnResetDesigns
             // 
@@ -473,32 +485,6 @@
             // splashScreenManager1
             // 
             this.splashScreenManager1.ClosingDelay = 500;
-            // 
-            // panelControl2
-            // 
-            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl2.Location = new System.Drawing.Point(206, 2);
-            this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(24, 43);
-            this.panelControl2.TabIndex = 6;
-            // 
-            // btnExcelExport
-            // 
-            this.btnExcelExport.Appearance.Options.UseTextOptions = true;
-            this.btnExcelExport.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.btnExcelExport.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnExcelExport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            this.btnExcelExport.ImageOptions.ImageToTextIndent = 10;
-            this.btnExcelExport.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.btnExcelExport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
-            this.btnExcelExport.ImageOptions.SvgImageSize = new System.Drawing.Size(30, 30);
-            this.btnExcelExport.Location = new System.Drawing.Point(230, 2);
-            this.btnExcelExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnExcelExport.Name = "btnExcelExport";
-            this.btnExcelExport.Size = new System.Drawing.Size(90, 43);
-            this.btnExcelExport.TabIndex = 7;
-            this.btnExcelExport.Text = "Excel\'e Aktar";
-            this.btnExcelExport.Click += new System.EventHandler(this.btnExcelExport_Click);
             // 
             // AdekoLib
             // 
