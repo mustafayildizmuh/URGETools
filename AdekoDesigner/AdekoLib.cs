@@ -171,7 +171,7 @@ namespace AdekoDesigner
             {
                 if (row.moduleType == ModuleType.std)
                 {
-                    return $@"(""{row.Code}"" {row.Dt1} {row.Width?.ToString("F4") ?? "0.0000"} {row.Height?.ToString("F4") ?? "0.0000"} {row.Depth?.ToString("F4") ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                    return $@"(""{row.Code}"" {row.Dt1} {row.Width?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.Height?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.Depth?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
                 }
                 else if (row.moduleType == ModuleType.korKose)
                 {
