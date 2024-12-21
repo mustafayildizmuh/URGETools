@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +13,6 @@ using DevExpress.XtraGrid;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
-using System.Net.Sockets;
-using DevExpress.Drawing.Internal.Fonts.Interop;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace AdekoDesigner
 {
@@ -26,13 +22,16 @@ namespace AdekoDesigner
         {
             InitializeComponent();
 
-            mainDir = "C:\\Adeko 142\\";
+            mainDir = "C:\\Adeko 142\\"; 
+            desingFolderName = ".\\Designs\\";
             libFolderName = "";
+            formDesignDeleted = false;
 
             loadDataTableDefs();
         }
 
-        private string mainDir, libFolderName;
+        private string mainDir, libFolderName, desingFolderName;
+        public bool formDesignDeleted;
 
         private List<DefGroup> defGroupList = new List<DefGroup>();
         private List<AdekoModule> adekoModuleList = new List<AdekoModule>();
@@ -515,6 +514,111 @@ namespace AdekoDesigner
             }
 
         }
+
+        private void AdekoLib_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveFormDesigns();
+        }
+        private void AdekoLib_Load(object sender, EventArgs e)
+        {
+            LoadFormDesigns();
+        }
+
+        private void btnResetDesigns_Click(object sender, EventArgs e)
+        {
+            ReseTFormDesigns();
+        }
+
+
+        private void SaveFormDesigns()
+        {
+            if (!formDesignDeleted)
+            {
+                try { splitContainerControl1.SaveLayoutToXml(desingFolderName + "splitContainerControl1.xml"); } catch (Exception) { }
+                try { splitContainerControl2.SaveLayoutToXml(desingFolderName + "splitContainerControl2.xml"); } catch (Exception) { }
+                try { gridView1.SaveLayoutToXml(desingFolderName + "gridView1.xml"); } catch (Exception) { }
+                try { gridView2.SaveLayoutToXml(desingFolderName + "gridView2.xml"); } catch (Exception) { }
+            }
+        }
+
+        private void LoadFormDesigns()
+        {
+            try { splitContainerControl1.RestoreLayoutFromXml(desingFolderName + "splitContainerControl1.xml"); } catch (Exception) { }
+            try { splitContainerControl2.RestoreLayoutFromXml(desingFolderName + "splitContainerControl2.xml"); } catch (Exception) { }
+            try { gridView1.RestoreLayoutFromXml(desingFolderName + "gridView1.xml"); } catch (Exception) { }
+            try { gridView2.RestoreLayoutFromXml(desingFolderName + "gridView2.xml"); } catch (Exception) { }
+        }
+
+
+        private void ReseTFormDesigns()
+        {
+
+            DialogResult dialog = MessageBox.Show(this, "Form kapatılacaktır. Sonra tekrar açmalısınız. Onaylıyor musunuz?", "ÇIKIŞ", MessageBoxButtons.YesNo);
+            if (dialog == DialogResult.Yes)
+            {
+                formDesignDeleted = true;
+                if (System.IO.File.Exists(desingFolderName + "splitContainerControl1.xml")) { System.IO.File.Delete(desingFolderName + "splitContainerControl1.xml"); }
+                if (System.IO.File.Exists(desingFolderName + "splitContainerControl2.xml")) { System.IO.File.Delete(desingFolderName + "splitContainerControl2.xml"); }
+                if (System.IO.File.Exists(desingFolderName + "gridView1.xml")) { System.IO.File.Delete(desingFolderName + "gridView1.xml"); }
+                if (System.IO.File.Exists(desingFolderName + "gridView2.xml")) { System.IO.File.Delete(desingFolderName + "gridView2.xml"); }
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(this, "Çıkış yapılmadı");
+            }
+        }
+
+
+        private void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            ExportGridToExcel();
+        }
+
+
+        private void ExportGridToExcel()
+        {
+            string lastUsedFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Varsayılan başlangıç
+
+            // SaveFileDialog oluştur
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Dialog ayarlarını yapılandır
+                saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                saveFileDialog.Title = "Excel Dosyasını Kaydet";
+
+                string sanitizedDateTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                saveFileDialog.FileName =$@"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.xlsx";
+
+                saveFileDialog.InitialDirectory = lastUsedFolderPath;
+
+                // Kullanıcı bir dosya seçtiyse
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        // Grid'i Excel'e dışa aktar
+                        gridControl2.ExportToXlsx(filePath);
+
+                        // Kullanıcıya işlem tamamlandığını bildir
+                        //MessageBox.Show($"Grid başarıyla Excel dosyasına dışa aktarıldı.\nDosya Yolu: {filePath}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Dosyayı aç (isteğe bağlı)
+                        //System.Diagnostics.Process.Start(filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hata durumunda mesaj göster
+                        MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+
     }
 
     public class DefGroup
