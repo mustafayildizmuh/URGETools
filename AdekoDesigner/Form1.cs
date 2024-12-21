@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DevExpress.LookAndFeel;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DevExpress.LookAndFeel;
 
 namespace AdekoDesigner
 {
@@ -9,6 +11,9 @@ namespace AdekoDesigner
         public Form1()
         {
             InitializeComponent();
+
+            LoadUserSkinAndPalette(); // Apply saved skin and palette
+
             this.IsMdiContainer = true;
         }
 
@@ -29,6 +34,7 @@ namespace AdekoDesigner
             this.Size = Properties.Settings.Default.WindowSize;
             this.WindowState = Properties.Settings.Default.WindowState;
 
+
             LoadLibs();
         }
 
@@ -43,6 +49,8 @@ namespace AdekoDesigner
 
             Properties.Settings.Default.WindowState = this.WindowState;
             Properties.Settings.Default.Save();
+
+            SaveUserSkinAndPalette(); // Save skin and palette before closing
         }
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -61,5 +69,32 @@ namespace AdekoDesigner
             adekoLib.Show();
             adekoLib.RefreshData();
         }
+
+        private void SaveUserSkinAndPalette()
+        {
+            string skinName = UserLookAndFeel.Default.SkinName;
+            string paletteName = UserLookAndFeel.Default.ActiveSvgPaletteName; // Example: save the first palette name
+
+            // Save skin and palette to settings
+            Properties.Settings.Default.SelectedSkin = skinName;
+            Properties.Settings.Default.SelectedPalette = paletteName;
+            Properties.Settings.Default.Save(); // Save to application settings
+        }
+
+
+        private void LoadUserSkinAndPalette()
+        {
+            string skinName = Properties.Settings.Default.SelectedSkin;
+            string paletteName = Properties.Settings.Default.SelectedPalette;
+
+            // Apply the saved skin
+            if (!string.IsNullOrEmpty(skinName) && !string.IsNullOrEmpty(paletteName))
+            {
+                UserLookAndFeel.Default.SetSkinStyle(skinName, paletteName);
+            }
+        }
+
+
+
     }
 }

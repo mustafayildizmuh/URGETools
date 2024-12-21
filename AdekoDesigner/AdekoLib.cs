@@ -72,56 +72,60 @@ namespace AdekoDesigner
         {
             foreach (DefGroup defGroup in defGroupList)
             {
-                string defFilePath = Path.Combine(mainDir, libFolderName, $"{defGroup.code}.DEF");
-
-                if (!File.Exists(defFilePath))
-                {
-                    MessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    continue;
-                }
-
-                List<AdekoModule> adekoModuleList_ToSave = combineLists(adekoModuleList_canRead,adekoModuleList_cantRead);
-
-                // Bu .DEF dosyasına ait güncellenmiş satırları al
-                List<AdekoModule> related_adekoModuleDefList = adekoModuleList_ToSave
-                    .Where(row => row.FileName == defGroup.code)
-                    .OrderBy(row => row.FileRowNo)
-                    .ToList();
-
-                //Liste boş ise devam etme
-                if (related_adekoModuleDefList.Count == 0) continue; 
-                // Güncellenmiş satırları al
-                var updatedRows = GetUpdatedRows(related_adekoModuleDefList);
-                if (updatedRows.Count == 0)  return; 
-
                 try
                 {
-                    // Mevcut dosyayı oku
-                    //var originalLines = File.ReadAllLines(defFilePath);
+                    string defFilePath = Path.Combine(mainDir, libFolderName, $"{defGroup.code}.DEF");
 
-                    // Yeni dosya içeriğini oluştur
-                    var newLines = CreateUpdatedFileContent(defGroup, related_adekoModuleDefList);
-
-                    // Yeni içeriği dosyaya yaz
-                    using (var writer = new StreamWriter(defFilePath, false, Encoding.Default))
+                    if (!File.Exists(defFilePath))
                     {
-                        for (int i = 0; i < newLines.Count; i++)
+                        MessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        continue;
+                    }
+
+                    List<AdekoModule> adekoModuleList_ToSave = combineLists(adekoModuleList_canRead, adekoModuleList_cantRead);
+
+                    // Bu .DEF dosyasına ait güncellenmiş satırları al
+                    List<AdekoModule> related_adekoModuleDefList = adekoModuleList_ToSave
+                        .Where(row => row.FileName == defGroup.code)
+                        .OrderBy(row => row.FileRowNo)
+                        .ToList();
+
+                    //Liste boş ise devam etme
+                    if (related_adekoModuleDefList.Count == 0) continue;
+                    // Güncellenmiş satırları al
+                    var updatedRows = GetUpdatedRows(related_adekoModuleDefList);
+                    if (updatedRows.Count == 0) continue;
+
+                    try
+                    {
+                        // Mevcut dosyayı oku
+                        //var originalLines = File.ReadAllLines(defFilePath);
+
+                        // Yeni dosya içeriğini oluştur
+                        var newLines = CreateUpdatedFileContent(defGroup, related_adekoModuleDefList);
+
+                        // Yeni içeriği dosyaya yaz
+                        using (var writer = new StreamWriter(defFilePath, false, Encoding.Default))
                         {
-                            if (i == newLines.Count - 1) // Last line
+                            for (int i = 0; i < newLines.Count; i++)
                             {
-                                writer.Write(newLines[i]); // Write without adding a new line
-                            }
-                            else
-                            {
-                                writer.WriteLine(newLines[i]);
+                                if (i == newLines.Count - 1) // Last line
+                                {
+                                    writer.Write(newLines[i]); // Write without adding a new line
+                                }
+                                else
+                                {
+                                    writer.WriteLine(newLines[i]);
+                                }
                             }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"'{defGroup.code}.DEF' dosyasını güncellerken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"'{defGroup.code}.DEF' dosyasını güncellerken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception) { }
+                
             }
 
             MessageBox.Show("Dosyalar başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -178,7 +182,10 @@ namespace AdekoDesigner
         private string FormatRowData(AdekoModule row)
         {
             // Örnek: Satırdaki verileri CSV formatında yaz
-            return $@"(""{row.Code}"" ""{row.Dt1}"" {row.Width} {row.Height} {row.Depth} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+            //return $@"(""{row.Code}"" ""{row.Dt1}"" {row.Width} {row.Height} {row.Depth} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+
+            return $@"(""{row.Code}"" ""{row.Dt1}"" {row.Width?.ToString("F4") ?? "0.0000"} {row.Height?.ToString("F4") ?? "0.0000"} {row.Depth?.ToString("F4") ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+
         }
 
 
@@ -321,9 +328,7 @@ namespace AdekoDesigner
                 return;
             }
 
-            int rowNo = 0;
-            bool canRead  = false;
-
+            int rowNo;
             try
             {
                 string[] lines = File.ReadAllLines(defFilePath, Encoding.GetEncoding("windows-1254")); // Tüm dosyayı okuyun
@@ -369,9 +374,9 @@ namespace AdekoDesigner
                 string dynamicDataString = string.Join(" ", parts.Skip(startIndex));
 
                 // Genişlik, yükseklik ve derinlik
-                decimal? width = ParseDecimal(parts.ElementAtOrDefault(2));
-                decimal? height = ParseDecimal(parts.ElementAtOrDefault(3));
-                decimal? depth = ParseDecimal(parts.ElementAtOrDefault(4));
+                decimal? width = TryParseDecimal(parts.ElementAtOrDefault(2));
+                decimal? height = TryParseDecimal(parts.ElementAtOrDefault(3));
+                decimal? depth = TryParseDecimal(parts.ElementAtOrDefault(4));
 
                 // Modülü oluştur
                 return new AdekoModule
@@ -386,13 +391,14 @@ namespace AdekoDesigner
                     Depth = depth,
                     RootCode = keyCode,
                     Description = description,
-                    LibFolderName = defGroup.name,
+                    LibFolderName = libFolderName,
                     FileName = defGroup.code,
                     FileRowNo = rowNo,
                     IsUpdated = false,
                     OriginalDataLine = line,
                     DynamicDataString = dynamicDataString
                 };
+                //return null;
             }
             catch
             {
@@ -413,18 +419,19 @@ namespace AdekoDesigner
         }
 
         // Decimal parse etmek için yardımcı fonksiyon
-        decimal ParseDecimal(string input)
+        private decimal? TryParseDecimal(string value)
         {
-            // Giriş değerinin beklenen kültüre uygun şekilde ayrıştırılması
-            if (decimal.TryParse(input, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal result))
-            {
-                return result;
-            }
-            else
-            {
-                throw new FormatException($"'{input}' değeri geçerli bir decimal formatında değil.");
-            }
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+
+            // Replace comma with dot for consistency in decimal parsing
+            value = value.Replace(',', '.');
+
+            return decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var result)
+                   ? (decimal?)result
+                   : null;
         }
+
 
         private static List<string> SplitWithQuotes(string input)
         {
