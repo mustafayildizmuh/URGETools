@@ -226,6 +226,14 @@ namespace AdekoDesigner
 
         }
 
+        public void UpdateSettings(Settings newSettings)
+        {
+            // Yeni ayarları al
+            this.settings = newSettings;
+
+            // Verileri yenile
+            RefreshData();
+        }
 
 
         public void RefreshData()
@@ -682,7 +690,6 @@ namespace AdekoDesigner
                 }
             }
         }
-
 
     }
 

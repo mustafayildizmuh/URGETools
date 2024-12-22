@@ -13,7 +13,8 @@ namespace AdekoDesigner
 {
     public partial class SettingsForm : DevExpress.XtraEditors.XtraForm
     {
-        public Settings CurrentSettings { get; set; } // Ana formdan alınacak ayarlar
+        public Settings CurrentSettings { get; set; }
+        public Action RefreshDataAction { get; set; } // AdekoLib'deki RefreshData metodunu tetikleyecek aksiyon
 
         public SettingsForm(Settings settings)
         {
@@ -40,10 +41,13 @@ namespace AdekoDesigner
                 .Where(line => !string.IsNullOrWhiteSpace(line)) // Boş satırları atla
                 .ToList();
 
+            // Ayarları kaydet
             this.DialogResult = DialogResult.OK; // Değişiklikleri onayla
             this.Close();
-        }
 
+            // Verileri yenilemek için RefreshDataAction'ı çağır
+            RefreshDataAction?.Invoke();
+        }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -64,7 +68,6 @@ namespace AdekoDesigner
                 }
             }
         }
-
-
     }
+
 }

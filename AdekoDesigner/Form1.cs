@@ -24,6 +24,7 @@ namespace AdekoDesigner
         }
 
         private Settings settings;
+        private AdekoLib adekoLib;
 
         string filePath;
 
@@ -68,17 +69,34 @@ namespace AdekoDesigner
             LoadLibs();
         }
 
+
         private void LoadLibs()
         {
-            // AdekoLib formunu oluştur ve göster
-            AdekoLib adekoLib = new AdekoLib
+            /// AdekoLib formunu oluştur ve göster
+            
+            if (adekoLib != null) adekoLib.Close();
+            adekoLib = new AdekoLib
             {
                 MdiParent = this,
                 WindowState = FormWindowState.Maximized,
                 settings = settings
             };
+
             adekoLib.Show();
             adekoLib.RefreshData();
+
+            //// SettingsForm'u göster ve veri yenileme aksiyonunu ayarla
+            //using (SettingsForm settingsForm = new SettingsForm(settings))
+            //{
+            //    if (settingsForm.ShowDialog() == DialogResult.OK)
+            //    {
+            //        // Kullanıcı ayarları onayladıysa, AdekoLib formundaki ayarları güncelle
+            //        adekoLib.UpdateSettings(settingsForm.CurrentSettings);
+
+            //        // Ayrıca, verileri de yenileyin
+            //        adekoLib.RefreshData();
+            //    }
+            //}
         }
 
         private void SaveUserSkinAndPalette()
@@ -164,6 +182,8 @@ namespace AdekoDesigner
                 {
                     // Kullanıcı değişiklikleri onayladıysa ayarları kaydet
                     SaveSettingsToJson(settings);
+
+                    try { adekoLib.UpdateSettings(settings); } catch (Exception) { }
 
                     // Kullanıcıya bilgi ver
                     // XtraXtraMessageBox.Show("Ayarlar başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);

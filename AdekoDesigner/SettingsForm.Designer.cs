@@ -158,12 +158,14 @@
             // 
             // panelControl2
             // 
+            this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.labelControl2);
             this.panelControl2.Controls.Add(this.labelControl3);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(3, 39);
+            this.panelControl2.Location = new System.Drawing.Point(0, 36);
+            this.panelControl2.Margin = new System.Windows.Forms.Padding(0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(90, 429);
+            this.panelControl2.Size = new System.Drawing.Size(96, 435);
             this.panelControl2.TabIndex = 7;
             // 
             // SettingsForm
@@ -175,6 +177,7 @@
             this.Controls.Add(this.panelControl1);
             this.IconOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("SettingsForm.IconOptions.SvgImage")));
             this.Name = "SettingsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ayarlar";
             this.Load += new System.EventHandler(this.Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
