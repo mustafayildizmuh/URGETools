@@ -22,15 +22,15 @@ namespace AdekoDesigner
         {
             InitializeComponent();
 
-            mainDir = "C:\\Adeko 142\\"; 
             desingFolderName = ".\\Designs\\";
             libFolderName = "";
             formDesignDeleted = false;
 
             loadDataTableDefs();
+
         }
 
-        private string mainDir, libFolderName, desingFolderName;
+        private string libFolderName, desingFolderName;
         public bool formDesignDeleted;
 
         private List<DefGroup> defGroupList = new List<DefGroup>();
@@ -38,7 +38,19 @@ namespace AdekoDesigner
         private BindingList<AdekoModule> adekoModuleList_canRead = new BindingList<AdekoModule>();
         private BindingList<AdekoModule> adekoModuleList_cantRead = new BindingList<AdekoModule>();
 
-        DataTable dataDefs = null;
+        private DataTable dataDefs = null;
+        public Settings settings { get; set; }
+
+        private void AdekoLib_Load(object sender, EventArgs e)
+        {
+            LoadFormDesigns();
+
+
+        }
+        private void AdekoLib_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveFormDesigns();
+        }
 
 
         private void gridControl2_Load(object sender, EventArgs e)
@@ -73,11 +85,11 @@ namespace AdekoDesigner
             {
                 try
                 {
-                    string defFilePath = Path.Combine(mainDir, libFolderName, $"{defGroup.code}.DEF");
+                    string defFilePath = Path.Combine(settings.MainDir, libFolderName, $"{defGroup.code}.DEF");
 
                     if (!File.Exists(defFilePath))
                     {
-                        MessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XtraMessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         continue;
                     }
 
@@ -121,13 +133,13 @@ namespace AdekoDesigner
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"'{defGroup.code}.DEF' dosyasını güncellerken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XtraMessageBox.Show($"'{defGroup.code}.DEF' dosyasını güncellerken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 } catch (Exception) { }
                 
             }
 
-            MessageBox.Show("Dosyalar başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            XtraMessageBox.Show("Dosyalar başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private List<AdekoModule> combineLists(BindingList<AdekoModule> list1, BindingList<AdekoModule> list2)
@@ -218,15 +230,15 @@ namespace AdekoDesigner
 
         public void RefreshData()
         {
-            List<string> ignoredFolders = new List<string> { "kapak", "kulp", "cera", "adeko_render_viewer32", "adeko_render_viewer64", "dclImages", "iconengines", "imageformats", "lights", "materials", "platforms", "ADEData", "adeko_render_viewer", "Agrx", "btoolsets", "Fonts", "Help", "Imalat", "lang", "language", "lng", "logs", "Patterns", "Shaders", "tefris", "xmf_tr", ".git" };
+            List<string> ignoredFolders = settings.IgnoredFolders;
 
             try
             {
                 // Ana dizini kontrol et
-                if (!Directory.Exists(mainDir)) { throw new DirectoryNotFoundException($"'{mainDir}' dizini bulunamadı."); }
+                if (!Directory.Exists(settings.MainDir)) { throw new DirectoryNotFoundException($"'{settings.MainDir}' dizini bulunamadı."); }
 
                 // Tüm klasörleri al
-                string[] allDirectories = Directory.GetDirectories(mainDir);
+                string[] allDirectories = Directory.GetDirectories(settings.MainDir);
 
                 // DataTable oluştur
                 DataTable dtExcludedFolders = new DataTable();
@@ -248,8 +260,8 @@ namespace AdekoDesigner
                 // DataTable'ı gridControl1'e ata
                 gridControl1.DataSource = dtExcludedFolders;
             }
-            catch (FileNotFoundException ex) { MessageBox.Show(ex.Message, "Dosya Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            catch (Exception ex) { MessageBox.Show($"Beklenmeyen bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (FileNotFoundException ex) { XtraMessageBox.Show(ex.Message, "Dosya Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { XtraMessageBox.Show($"Beklenmeyen bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void gridView1_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
@@ -295,7 +307,7 @@ namespace AdekoDesigner
             try
             {
                 // GRUP.LST dosyasının tam yolu
-                string groupLstPath = Path.Combine(mainDir, libFolder, "GRUPS.LST");
+                string groupLstPath = Path.Combine(settings.MainDir, libFolder, "GRUPS.LST");
 
                 if (!File.Exists(groupLstPath)) { throw new FileNotFoundException($"'{groupLstPath}' dosyası bulunamadı."); }
 
@@ -319,17 +331,17 @@ namespace AdekoDesigner
                 }
 
             }
-            catch (FileNotFoundException ex) { MessageBox.Show(ex.Message, "Dosya Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            catch (Exception ex) { MessageBox.Show($"Beklenmeyen bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (FileNotFoundException ex) { XtraMessageBox.Show(ex.Message, "Dosya Bulunamadı", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { XtraMessageBox.Show($"Beklenmeyen bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public void addDefFile_toDataTableDefs(DefGroup defGroup)
         {
 
-            string defFilePath = Path.Combine(mainDir, libFolderName, $"{defGroup.code}.DEF");
+            string defFilePath = Path.Combine(settings.MainDir, libFolderName, $"{defGroup.code}.DEF");
             if (!File.Exists(defFilePath))
             {
-                MessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show($"'{defGroup.code}.DEF' dosyası bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -531,7 +543,7 @@ namespace AdekoDesigner
                     if (libFolderName != null && code != null)
                     {
 
-                        string imgFilePath = Path.Combine(mainDir, libFolderName, folderName, $"{code}.bmp");
+                        string imgFilePath = Path.Combine(settings.MainDir, libFolderName, folderName, $"{code}.bmp");
 
                         // Dosyanın mevcut olup olmadığını kontrol et
                         if (File.Exists(imgFilePath))
@@ -541,19 +553,19 @@ namespace AdekoDesigner
                         }
                         else
                         {
-                            //MessageBox.Show($"Görsel bulunamadı: {imgFilePath}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //XtraMessageBox.Show($"Görsel bulunamadı: {imgFilePath}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             pictureEdit1.Image = Properties.Resources.resim_yok; // Resim bulunamadığında kontrolü temizle
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Seçilen satır uygun türde değil.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    XtraMessageBox.Show("Seçilen satır uygun türde değil.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Lütfen geçerli bir veri satırı seçin.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                XtraMessageBox.Show("Lütfen geçerli bir veri satırı seçin.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -575,14 +587,7 @@ namespace AdekoDesigner
 
         }
 
-        private void AdekoLib_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SaveFormDesigns();
-        }
-        private void AdekoLib_Load(object sender, EventArgs e)
-        {
-            LoadFormDesigns();
-        }
+
 
         private void btnResetDesigns_Click(object sender, EventArgs e)
         {
@@ -613,7 +618,7 @@ namespace AdekoDesigner
         private void ReseTFormDesigns()
         {
 
-            DialogResult dialog = MessageBox.Show(this, "Form kapatılacaktır. Sonra tekrar açmalısınız. Onaylıyor musunuz?", "ÇIKIŞ", MessageBoxButtons.YesNo);
+            DialogResult dialog = XtraMessageBox.Show(this, "Form kapatılacaktır. Sonra tekrar açmalısınız. Onaylıyor musunuz?", "ÇIKIŞ", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
                 formDesignDeleted = true;
@@ -626,7 +631,7 @@ namespace AdekoDesigner
             }
             else
             {
-                MessageBox.Show(this, "Çıkış yapılmadı");
+                XtraMessageBox.Show(this, "Çıkış yapılmadı");
             }
         }
 
@@ -664,7 +669,7 @@ namespace AdekoDesigner
                         gridControl2.ExportToXlsx(filePath);
 
                         // Kullanıcıya işlem tamamlandığını bildir
-                        //MessageBox.Show($"Grid başarıyla Excel dosyasına dışa aktarıldı.\nDosya Yolu: {filePath}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //XtraMessageBox.Show($"Grid başarıyla Excel dosyasına dışa aktarıldı.\nDosya Yolu: {filePath}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Dosyayı aç (isteğe bağlı)
                         //System.Diagnostics.Process.Start(filePath);
@@ -672,7 +677,7 @@ namespace AdekoDesigner
                     catch (Exception ex)
                     {
                         // Hata durumunda mesaj göster
-                        MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        XtraMessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

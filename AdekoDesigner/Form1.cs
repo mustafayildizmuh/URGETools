@@ -2,7 +2,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using DevExpress.LookAndFeel;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using DevExpress.XtraEditors;
 
 namespace AdekoDesigner
 {
@@ -15,7 +18,14 @@ namespace AdekoDesigner
             LoadUserSkinAndPalette(); // Apply saved skin and palette
 
             this.IsMdiContainer = true;
+
+            filePath = "Settings.json";
+            settings = GetOrCreateSettings();
         }
+
+        private Settings settings;
+
+        string filePath;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -64,7 +74,8 @@ namespace AdekoDesigner
             AdekoLib adekoLib = new AdekoLib
             {
                 MdiParent = this,
-                WindowState = FormWindowState.Maximized
+                WindowState = FormWindowState.Maximized,
+                settings = settings
             };
             adekoLib.Show();
             adekoLib.RefreshData();
@@ -94,7 +105,78 @@ namespace AdekoDesigner
             }
         }
 
+        public Settings GetOrCreateSettings()
+        {
+            // JSON dosyasını yüklemeye çalış
+            var settings = LoadSettingsFromJson();
+
+            // Dosya yoksa varsayılan değerlerle yeni ayarlar oluştur
+            if (settings == null)
+            {
+                settings = new Settings
+                {
+                    MainDir = "C:\\Adeko 14",
+                    IgnoredFolders = new List<string>
+                    {
+                        "kapak", "kulp", "cera", "adeko_render_viewer32",
+                        "adeko_render_viewer64", "dclImages", "iconengines",
+                        "imageformats", "lights", "materials", "platforms",
+                        "ADEData", "adeko_render_viewer", "Agrx", "btoolsets",
+                        "Fonts", "Help", "Imalat", "lang", "language",
+                        "lng", "logs", "Patterns", "Shaders", "tefris",
+                        "xmf_tr", ".git"
+                    }
+                };
+
+                // Varsayılan değerlerle JSON dosyasını kaydet
+                SaveSettingsToJson(settings);
+            }
+
+            return settings;
+        }
 
 
+        public void SaveSettingsToJson(Settings settings)
+        {
+            string json = JsonConvert.SerializeObject(settings, Formatting.Indented); // Okunaklı format
+            File.WriteAllText(filePath, json);
+        }
+
+        public Settings LoadSettingsFromJson()
+        {
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<Settings>(json);
+        }
+
+        private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            var settings = GetOrCreateSettings(); // Ayarları yükle
+
+            // SettingsForm'u göster
+            using (SettingsForm form = new SettingsForm(settings))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    // Kullanıcı değişiklikleri onayladıysa ayarları kaydet
+                    SaveSettingsToJson(settings);
+
+                    // Kullanıcıya bilgi ver
+                    // XtraXtraMessageBox.Show("Ayarlar başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+    }
+
+
+    public class Settings
+    {
+        public string MainDir { get; set; }
+        public List<string> IgnoredFolders { get; set; }
     }
 }
