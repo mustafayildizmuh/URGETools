@@ -13,6 +13,7 @@ using DevExpress.XtraGrid;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraEditors.Repository;
 
 namespace AdekoDesigner
 {
@@ -28,6 +29,13 @@ namespace AdekoDesigner
 
             loadDataTableDefs();
 
+            // RepositoryItemTextEdit oluşturun ve devre dışı bırakma özelliklerini ayarlayın
+            disabledTextEdit = new RepositoryItemTextEdit
+            {
+                ReadOnly = true,
+                AllowFocused = false,
+                Enabled = false
+            };
         }
 
         private string libFolderName, desingFolderName;
@@ -40,6 +48,9 @@ namespace AdekoDesigner
 
         private DataTable dataDefs = null;
         public Settings settings { get; set; }
+
+        // Devre dışı bırakılacak bir RepositoryItemTextEdit oluşturun
+        RepositoryItemTextEdit disabledTextEdit;
 
         private void AdekoLib_Load(object sender, EventArgs e)
         {
@@ -649,6 +660,26 @@ namespace AdekoDesigner
             ExportGridToExcel();
         }
 
+
+        private void gridView2_CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
+        {
+            // Sadece belirli kolonlar için kontrol
+            if (e.Column.FieldName == "Width" || e.Column.FieldName == "Height" || e.Column.FieldName == "Depth")
+            {
+                // Hücre değerini alın
+                object cellValue = gridView2.GetRowCellValue(e.RowHandle, e.Column);
+
+                // Eğer hücre değeri null veya DBNull.Value ise devre dışı bırak
+                if (cellValue == null || cellValue == DBNull.Value)
+                {
+                    e.RepositoryItem = disabledTextEdit; // Hücre için devre dışı bırakılmış editör
+                }
+                else
+                {
+                    e.RepositoryItem = e.Column.ColumnEdit; // Varsayılan editörü kullan
+                }
+            }
+        }
 
         private void ExportGridToExcel()
         {
