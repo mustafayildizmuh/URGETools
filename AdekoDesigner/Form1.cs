@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using DevExpress.XtraEditors;
+using AutoUpdaterDotNET;
+using AdekoDesigner.Properties;
 
 namespace AdekoDesigner
 {
@@ -14,6 +16,10 @@ namespace AdekoDesigner
         public Form1()
         {
             InitializeComponent();
+
+
+
+            //AutoUpdater.Start("\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml");
 
             LoadUserSkinAndPalette(); // Apply saved skin and palette
 
@@ -30,6 +36,7 @@ namespace AdekoDesigner
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             // Ayarları yükle veya varsayılan değerlere ayarla
             if (Properties.Settings.Default.WindowLocation == Point.Empty)
             {
@@ -47,6 +54,14 @@ namespace AdekoDesigner
 
 
             LoadLibs();
+
+            CheckForUpdate();
+        }
+
+        private void CheckForUpdate()
+        {
+            if (string.IsNullOrEmpty(settings.UpdateURL)) settings.UpdateURL = "\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml";
+            AutoUpdater.Start(settings.UpdateURL);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -133,7 +148,11 @@ namespace AdekoDesigner
             {
                 settings = new Settings
                 {
+                    UpdateURL = "\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml",
                     MainDir = "C:\\Adeko 14",
+                    FbDir = "C:\\Fenix\\VITEM2023.FDB",
+                    FbUser = "SYSDBA",
+                    FbPass = "masterkey",
                     IgnoredFolders = new List<string>
                     {
                         "kapak", "kulp", "cera", "adeko_render_viewer32",
@@ -196,7 +215,11 @@ namespace AdekoDesigner
 
     public class Settings
     {
+        public string UpdateURL { get; set; }
         public string MainDir { get; set; }
+        public string FbDir { get; set; }
+        public string FbUser { get; set; }
+        public string FbPass { get; set; }
         public List<string> IgnoredFolders { get; set; }
     }
 }

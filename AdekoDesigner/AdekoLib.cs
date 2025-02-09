@@ -14,6 +14,8 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.ExpressApp.DC;
+using System.Reflection;
 
 namespace AdekoDesigner
 {
@@ -55,8 +57,6 @@ namespace AdekoDesigner
         private void AdekoLib_Load(object sender, EventArgs e)
         {
             LoadFormDesigns();
-
-
         }
         private void AdekoLib_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -192,13 +192,29 @@ namespace AdekoDesigner
             }
             else if (row.IsUpdated)
             {
-                if (row.moduleType == ModuleType.std)
+                if (row.moduleType == ModuleType.std || row.moduleType == ModuleType.korKose2)
                 {
-                    return $@"(""{row.Code}"" {row.Dt1} {row.Width?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.Height?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.Depth?.ToString("F4", CultureInfo.InvariantCulture) ?? "0.0000"} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                    return $@"(""{row.Code}"" {row.Dt1} {To7Str(row.Width)} {To7Str(row.Height)} {To7Str(row.Depth)} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
                 }
-                else if (row.moduleType == ModuleType.korKose)
+                else if (row.moduleType == ModuleType.korKose1)
                 {
-                    return $@"(""{row.Code}"" {row.Dt1} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                    string line = $@"(""{row.Code}"" {row.Dt1} {row.KorKoseEk} {To7Str(row.Width)} {To7Str(row.Height)} {To7Str(row.Depth)} {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                    return line;
+                }
+                else if (row.moduleType == ModuleType.korKose3)
+                {
+                    string line = $@"(""{row.Code}"" {row.Dt1} (QUOTE (({To7Str(row.Width)} {row.KorKoseEk}) {To7Str(row.Height)} {To7Str(row.Depth)}) {row.DynamicDataString} ""{row.RootCode}"" ""{row.Description}"")";
+                    return line;
+                }
+                else if (row.moduleType == ModuleType.dwg)
+                {
+                    string line = $@"(""{row.Code}"" {row.Dt1} (QUOTE ({To7Str(row.Width)} {To7Str(row.Height)} {To7Str(row.Depth)})) {row.DynamicDataString} ""{row.Description}"")";
+                    return line;
+                }
+                else if (row.moduleType == ModuleType.ustKorKose1)
+                {
+                    string line = $@"(""{row.Code}"" {row.Dt1} {To7Str(row.Width)} {To7Str(row.Height)} {row.KorKoseEk} {To7Str(row.Depth)})) {row.DynamicDataString} ""{row.Description}"")";
+                    return line;
                 }
                 else if (row.moduleType == ModuleType.diger)
                 {
@@ -215,6 +231,23 @@ namespace AdekoDesigner
             }
 
 
+        }
+
+        private string To7Str(decimal? value)
+        {
+            if (!value.HasValue)
+                return "0.0000";
+
+            // Noktadan sonra 4 basamaklı format oluştur
+            string formatted = value.Value.ToString("F4", CultureInfo.InvariantCulture);
+
+            // Toplam uzunluk 7 karakter olacak şekilde kes
+            formatted = formatted.Length > 7 ? formatted.Substring(0, 7) : formatted;
+
+            // string içinde boşluk olmamamlı
+            //formatted = formatted.Replace(" ", string.Empty);
+
+            return formatted;
         }
 
 
@@ -409,25 +442,82 @@ namespace AdekoDesigner
                 // Genişlik, yükseklik ve derinlik
                 decimal? width, height, depth ;
                 string dynamicDataString = "";
+                string korKoseEK = "";
 
-                if (parts[2] == "(QUOTE") // Diğerleri
+
+                
+
+                if (parts[2] == "(QUOTE" && parts[3].StartsWith("(") && !parts[3].StartsWith("((")) // Diğerleri
                 {
-                    _moduleType = ModuleType.diger;
-                    keyCode = "";
+                    _moduleType = ModuleType.dwg;
+                }
+                else if (parts[2] == "(QUOTE" && parts[3].StartsWith("((")) // Diğerleri
+                {
+                    _moduleType = ModuleType.dwg;
+                }
+
+                if (parts[2] == "(QUOTE" && parts[3].StartsWith("(") && !parts[3].StartsWith("((")) // Dwg ler
+                {
+                    _moduleType = ModuleType.dwg;
+                    //keyCode = "";
 
                     // Dinamik verileri ayıkla
-                    int startIndex = 2;
+                    int startIndex = 6;
                     int count = Math.Max(0, parts.Count - startIndex - 1);
                     dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
 
                     // Genişlik, yükseklik ve derinlik
-                    width = null;
-                    height = null;
-                    depth = null;
+                    width = TryParseDecimal(RemoveParentheses(parts.ElementAtOrDefault(3)));
+                    height = TryParseDecimal(RemoveParentheses(parts.ElementAtOrDefault(4)));
+                    depth = TryParseDecimal(RemoveParentheses(parts.ElementAtOrDefault(5)));
                 }
-                else if (parts[3] == "nil") // Kör Köşe
+                else if (parts[2] == "(QUOTE" && parts[3].StartsWith("((")) // Diğerleri
                 {
-                    _moduleType = ModuleType.korKose;
+                    _moduleType = ModuleType.korKose3;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 7;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+                    korKoseEK = string.Join(" ", parts.Skip(4).Take(1));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = TryParseDecimal(parts.ElementAtOrDefault(3).Trim().Trim('('));
+                    height = TryParseDecimal(parts.ElementAtOrDefault(5).Trim().Trim('('));
+                    depth = TryParseDecimal(parts.ElementAtOrDefault(6).Trim().Trim(')'));
+                }
+                else if (isNumeric(parts[2]) && parts[3] == "nil" && parts[4] == "nil" && isNumeric(parts[5]) && isNumeric(parts[6]) && isNumeric(parts[7])) // Kör Köşe
+                {
+                    _moduleType = ModuleType.korKose1;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 8;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+                    korKoseEK = string.Join(" ", parts.Skip(2).Take(3));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = TryParseDecimal(parts.ElementAtOrDefault(5));
+                    height = TryParseDecimal(parts.ElementAtOrDefault(6));
+                    depth = TryParseDecimal(parts.ElementAtOrDefault(7));
+                }
+                else if (isNumeric(parts[2]) && isNumeric(parts[3]) && isNumeric(parts[4]) && parts[5] == "nil") // Kör Köşe
+                {
+                    _moduleType = ModuleType.korKose2;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 5;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = TryParseDecimal(parts.ElementAtOrDefault(2));
+                    height = TryParseDecimal(parts.ElementAtOrDefault(4));
+                    depth = TryParseDecimal(parts.ElementAtOrDefault(3));
+                }
+                else if (parts[2] == "nil" || parts[3] == "nil" || parts[4] == "nil") // Diğer
+                {
+                    _moduleType = ModuleType.diger;
 
                     // Dinamik verileri ayıkla
                     int startIndex = 2;
@@ -441,6 +531,21 @@ namespace AdekoDesigner
                     //width = TryParseDecimal(parts.ElementAtOrDefault(7));
                     //height = TryParseDecimal(parts.ElementAtOrDefault(8));
                     //depth = TryParseDecimal(parts.ElementAtOrDefault(9));
+                }
+                else if (parts[4] == "(QUOTE" ) // Üst Kör Köşe
+                {
+                    _moduleType = ModuleType.ustKorKose1;
+
+                    // Dinamik verileri ayıkla
+                    int startIndex = 7;
+                    int count = Math.Max(0, parts.Count - startIndex - 2);
+                    dynamicDataString = string.Join(" ", parts.Skip(startIndex).Take(count));
+                    korKoseEK = string.Join(" ", parts.Skip(4).Take(2));
+
+                    // Genişlik, yükseklik ve derinlik
+                    width = TryParseDecimal(parts.ElementAtOrDefault(2).Trim().Trim('('));
+                    height = TryParseDecimal(parts.ElementAtOrDefault(3).Trim().Trim('('));
+                    depth = TryParseDecimal(parts.ElementAtOrDefault(6).Trim().Trim(')'));
                 }
                 else // std modül
                 {
@@ -478,6 +583,7 @@ namespace AdekoDesigner
                     IsUpdated = false,
                     OriginalDataLine = line,
                     DynamicDataString = dynamicDataString,
+                    KorKoseEk = korKoseEK,
                     moduleType = _moduleType
                 };
                 //return null;
@@ -486,6 +592,18 @@ namespace AdekoDesigner
             {
                 return CreateInvalidModule(defGroup, rowNo, line);
             }
+        }
+
+        string RemoveParentheses(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input; // Return null or empty as is.
+            return input.Replace(")", "").Replace("(", "");
+        }
+
+        private bool isNumeric(string val)
+        {
+            return double.TryParse(val, out _);
         }
 
         private AdekoModule CreateInvalidModule(DefGroup defGroup, int rowNo, string line)
@@ -655,12 +773,6 @@ namespace AdekoDesigner
         }
 
 
-        private void btnExcelExport_Click(object sender, EventArgs e)
-        {
-            ExportGridToExcel();
-        }
-
-
         private void gridView2_CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e)
         {
             // Sadece belirli kolonlar için kontrol
@@ -681,6 +793,11 @@ namespace AdekoDesigner
             }
         }
 
+        private void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            ExportGridToExcel();
+        }
+
         private void ExportGridToExcel()
         {
             string lastUsedFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Varsayılan başlangıç
@@ -693,7 +810,7 @@ namespace AdekoDesigner
                 saveFileDialog.Title = "Excel Dosyasını Kaydet";
 
                 string sanitizedDateTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-                saveFileDialog.FileName =$@"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.xlsx";
+                saveFileDialog.FileName = $@"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.xlsx";
 
                 saveFileDialog.InitialDirectory = lastUsedFolderPath;
 
@@ -722,6 +839,97 @@ namespace AdekoDesigner
             }
         }
 
+        private void btnUrGe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCSVExport_Click(object sender, EventArgs e)
+        {
+            ExportGridToCustomCSV();
+        }
+
+
+        private void ExportGridToCustomCSV()
+        {
+            string lastUsedFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Varsayılan başlangıç
+
+            // SaveFileDialog oluştur
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Dialog ayarlarını yapılandır
+                saveFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+                saveFileDialog.Title = "CSV Dosyasını Kaydet";
+
+                string sanitizedDateTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                saveFileDialog.FileName = $"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.csv";
+
+                saveFileDialog.InitialDirectory = lastUsedFolderPath;
+
+                // Kullanıcı bir dosya seçtiyse
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                        {
+                            // İlk satırı yaz
+                            writer.WriteLine($@"Z;{libFolderName};;{DateTime.Now:dd.MM.yy};;;");
+
+                            // Tüm satırları işle
+                            //for (int i = 0; i < gridView2.RowCount; i++)
+                            //{
+                            //    // Gerekli sütunları al
+                            //    string kok = gridView2.GetRowCellValue(i, "RootCode")?.ToString() ?? string.Empty;
+                            //    string ad = gridView2.GetRowCellValue(i, "Code")?.ToString() ?? string.Empty;
+                            //    decimal.TryParse(gridView2.GetRowCellValue(i, "Width")?.ToString(), out decimal en);
+                            //    decimal.TryParse(gridView2.GetRowCellValue(i, "Depth")?.ToString(), out decimal derinlik);
+                            //    decimal.TryParse(gridView2.GetRowCellValue(i, "Height")?.ToString(), out decimal yukseklik);
+
+
+
+                            //    // İstenen formatı oluştur
+                            //    string formattedLine = $"X;{ad};{kok};1;{(int)(en * 10)};{(int)(derinlik * 10)};{(int)(yukseklik * 10)}";
+
+                            //    // CSV'ye yaz
+                            //    writer.WriteLine(formattedLine);
+                            //}
+
+                            foreach (AdekoModule item in adekoModuleList_canRead)
+                            {
+                                // Null değerleri kontrol edip varsayılan değeri belirle
+                                int width = item.Width.HasValue ? (int)(item.Width.Value * 10) : 0;
+                                int depth = item.Depth.HasValue ? (int)(item.Depth.Value * 10) : 0;
+                                int height = item.Height.HasValue ? (int)(item.Height.Value * 10) : 0;
+
+                                // İstenen formatı oluştur
+                                string formattedLine = $"X;{item.RootCode ?? string.Empty};{item.Code ?? string.Empty};1;{width};{height};{depth};{item.Description}";
+
+                                // CSV'ye yaz
+                                writer.WriteLine(formattedLine);
+                            }
+
+                        }
+
+                        // Kullanıcıya işlem tamamlandığını bildir
+                        //XtraMessageBox.Show($"CSV dosyası başarıyla kaydedildi.\nDosya Yolu: {filePath}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Dosyayı aç (isteğe bağlı)
+                        //System.Diagnostics.Process.Start(filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hata durumunda mesaj göster
+                        XtraMessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+
+
     }
 
     public class DefGroup
@@ -742,6 +950,7 @@ namespace AdekoDesigner
         public string Description { get; set; }
         //public List<string> DynamicData { get; set; } = new List<string>();
         public string DynamicDataString { get; set; } // Dinamik verilerin birleşik hali
+        public string KorKoseEk { get; set; }
         public string LibFolderName { get; set; }
         public string Group { get; set; }
         public string FileName { get; set; }
@@ -751,12 +960,55 @@ namespace AdekoDesigner
         public ModuleType moduleType { get; set; }
     }
 
+
+    [TypeConverter(typeof(EnumDisplayNameConverter))]
     public enum ModuleType
     {
+        [XafDisplayName("Tanımsız")]
         tanimsiz = 0,
+
+        [XafDisplayName("Standart")]
         std = 1,
-        korKose = 2,
-        diger = 3
+
+        [XafDisplayName("Köşe Modül 1")]
+        korKose1 = 2,
+
+        [XafDisplayName("Köşe Modül 2")]
+        korKose2 = 3,
+
+        [XafDisplayName("Köşe Modül 3")]
+        korKose3 = 4,
+
+        [XafDisplayName("Üst Köşe Modül 1")]
+        ustKorKose1 = 5,
+
+        [XafDisplayName("Çizim (DWG)")]
+        dwg = 6,
+
+        [XafDisplayName("Diğer")]
+        diger = 7
+    }
+
+    public class EnumDisplayNameConverter : EnumConverter
+    {
+        public EnumDisplayNameConverter(Type type) : base(type) { }
+
+        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value != null)
+            {
+                FieldInfo field = value.GetType().GetField(value.ToString());
+                if (field != null)
+                {
+                    XafDisplayNameAttribute attr = field.GetCustomAttribute<XafDisplayNameAttribute>();
+                    if (attr != null)
+                    {
+                        return attr.DisplayName;
+                    }
+                }
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
     }
 
 }

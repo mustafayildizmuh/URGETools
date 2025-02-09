@@ -26,6 +26,9 @@ namespace AdekoDesigner
         {
             // Ayarları forma yükle
             textFolderPath.Text = CurrentSettings.MainDir;
+            textFbDir.Text = CurrentSettings.FbDir;
+            textFbUser.Text = CurrentSettings.FbUser;
+            textFbPass.Text = CurrentSettings.FbPass;
 
             // IgnoredFolders listesini richTextBox'a yükle
             richTextBox_IgnoredFolderList.Text = string.Join(Environment.NewLine, CurrentSettings.IgnoredFolders);
@@ -35,6 +38,9 @@ namespace AdekoDesigner
         {
             // Kullanıcının yaptığı değişiklikleri CurrentSettings'e aktar
             CurrentSettings.MainDir = textFolderPath.Text;
+            CurrentSettings.FbDir = textFbDir.Text;
+            CurrentSettings.FbUser = textFbUser.Text;
+            CurrentSettings.FbPass = textFbPass.Text;
 
             // IgnoredFolders listesini richTextBox'tan doğru şekilde al
             CurrentSettings.IgnoredFolders = richTextBox_IgnoredFolderList.Lines

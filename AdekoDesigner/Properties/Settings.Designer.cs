@@ -22,18 +22,33 @@ namespace AdekoDesigner.Properties {
                 return defaultInstance;
             }
         }
-        
+
+        //[global::System.Configuration.UserScopedSettingAttribute()]
+        //[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        //public global::System.Drawing.Point WindowLocation {
+        //    get {
+        //        return ((global::System.Drawing.Point)(this["WindowLocation"]));
+        //    }
+        //    set {
+        //        this["WindowLocation"] = value;
+        //    }
+        //}
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Drawing.Point WindowLocation {
-            get {
-                return ((global::System.Drawing.Point)(this["WindowLocation"]));
+        public global::System.Drawing.Point WindowLocation
+        {
+            get
+            {
+                object value = this["WindowLocation"];
+                return value != null ? (System.Drawing.Point)value : new System.Drawing.Point(100, 100);
             }
-            set {
+            set
+            {
                 this["WindowLocation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]

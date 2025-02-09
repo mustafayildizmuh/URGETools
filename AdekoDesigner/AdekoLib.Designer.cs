@@ -57,13 +57,18 @@
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btnUrGe = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.btnCSVExport = new DevExpress.XtraEditors.SimpleButton();
             this.btnExcelExport = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.btnResetDesigns = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::AdekoDesigner.WaitForm1), true, true);
+            this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1.Panel1)).BeginInit();
             this.splitContainerControl1.Panel1.SuspendLayout();
@@ -87,7 +92,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainerControl1
@@ -230,7 +238,8 @@
             this.gridColumn14,
             this.gridColumn15,
             this.gridColumn17,
-            this.gridColumn18});
+            this.gridColumn18,
+            this.gridColumn19});
             this.gridView2.CustomizationFormBounds = new System.Drawing.Rectangle(1174, 210, 264, 334);
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
@@ -392,6 +401,9 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.btnUrGe);
+            this.panelControl1.Controls.Add(this.panelControl4);
+            this.panelControl1.Controls.Add(this.btnCSVExport);
             this.panelControl1.Controls.Add(this.btnExcelExport);
             this.panelControl1.Controls.Add(this.panelControl2);
             this.panelControl1.Controls.Add(this.btnResetDesigns);
@@ -403,6 +415,50 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1109, 47);
             this.panelControl1.TabIndex = 1;
+            // 
+            // btnUrGe
+            // 
+            this.btnUrGe.Appearance.Options.UseTextOptions = true;
+            this.btnUrGe.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.btnUrGe.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnUrGe.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnUrGe.ImageOptions.ImageToTextIndent = 10;
+            this.btnUrGe.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnUrGe.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnUrGe.ImageOptions.SvgImage")));
+            this.btnUrGe.ImageOptions.SvgImageSize = new System.Drawing.Size(30, 30);
+            this.btnUrGe.Location = new System.Drawing.Point(434, 2);
+            this.btnUrGe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnUrGe.Name = "btnUrGe";
+            this.btnUrGe.Size = new System.Drawing.Size(90, 43);
+            this.btnUrGe.TabIndex = 10;
+            this.btnUrGe.Text = "UR-GE Bağlan";
+            this.btnUrGe.Click += new System.EventHandler(this.btnUrGe_Click);
+            // 
+            // panelControl4
+            // 
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl4.Location = new System.Drawing.Point(410, 2);
+            this.panelControl4.Name = "panelControl4";
+            this.panelControl4.Size = new System.Drawing.Size(24, 43);
+            this.panelControl4.TabIndex = 9;
+            // 
+            // btnCSVExport
+            // 
+            this.btnCSVExport.Appearance.Options.UseTextOptions = true;
+            this.btnCSVExport.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.btnCSVExport.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnCSVExport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnCSVExport.ImageOptions.ImageToTextIndent = 10;
+            this.btnCSVExport.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnCSVExport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCSVExport.ImageOptions.SvgImage")));
+            this.btnCSVExport.ImageOptions.SvgImageSize = new System.Drawing.Size(30, 30);
+            this.btnCSVExport.Location = new System.Drawing.Point(320, 2);
+            this.btnCSVExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCSVExport.Name = "btnCSVExport";
+            this.btnCSVExport.Size = new System.Drawing.Size(90, 43);
+            this.btnCSVExport.TabIndex = 8;
+            this.btnCSVExport.Text = "CSV\'Ye Aktar";
+            this.btnCSVExport.Click += new System.EventHandler(this.btnCSVExport_Click);
             // 
             // btnExcelExport
             // 
@@ -424,11 +480,20 @@
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.panelControl3);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl2.Location = new System.Drawing.Point(206, 2);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(24, 43);
             this.panelControl2.TabIndex = 6;
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl3.Location = new System.Drawing.Point(2, 2);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(24, 39);
+            this.panelControl3.TabIndex = 7;
             // 
             // btnResetDesigns
             // 
@@ -491,6 +556,17 @@
             // 
             this.splashScreenManager1.ClosingDelay = 500;
             // 
+            // gridColumn19
+            // 
+            this.gridColumn19.Caption = "ModülTipi";
+            this.gridColumn19.FieldName = "moduleType";
+            this.gridColumn19.Name = "gridColumn19";
+            this.gridColumn19.OptionsColumn.AllowEdit = false;
+            this.gridColumn19.OptionsColumn.AllowFocus = false;
+            this.gridColumn19.OptionsColumn.ReadOnly = true;
+            this.gridColumn19.Visible = true;
+            this.gridColumn19.VisibleIndex = 11;
+            // 
             // AdekoLib
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -526,7 +602,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
+            this.panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -568,5 +647,10 @@
         private DevExpress.XtraEditors.SimpleButton btnResetDesigns;
         private DevExpress.XtraEditors.SimpleButton btnExcelExport;
         private DevExpress.XtraEditors.PanelControl panelControl2;
+        private DevExpress.XtraEditors.SimpleButton btnCSVExport;
+        private DevExpress.XtraEditors.SimpleButton btnUrGe;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn19;
     }
 }
