@@ -17,10 +17,6 @@ namespace AdekoDesigner
         {
             InitializeComponent();
 
-
-
-            //AutoUpdater.Start("\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml");
-
             LoadUserSkinAndPalette(); // Apply saved skin and palette
 
             this.IsMdiContainer = true;
@@ -60,7 +56,8 @@ namespace AdekoDesigner
 
         private void CheckForUpdate()
         {
-            if (string.IsNullOrEmpty(settings.UpdateURL)) settings.UpdateURL = "\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml";
+            //if (string.IsNullOrEmpty(settings.UpdateURL)) settings.UpdateURL = "file://192.168.1.202/TeknikOfis/Vitem%20TopSolid%20Ortak/AdekoDesigner/UpdateInfo.xml";
+            //AutoUpdater.ReportErrors = true;
             AutoUpdater.Start(settings.UpdateURL);
         }
 
@@ -148,7 +145,7 @@ namespace AdekoDesigner
             {
                 settings = new Settings
                 {
-                    UpdateURL = "\\192.168.1.202\\TeknikOfis\\Vitem TopSolid Ortak\\AdekoDesigner\\UpdateInfo.xml",
+                    UpdateURL = "file://192.168.1.202/TeknikOfis/Vitem%20TopSolid%20Ortak/AdekoDesigner/UpdateInfo.xml",
                     MainDir = "C:\\Adeko 14",
                     FbDir = "C:\\Fenix\\VITEM2023.FDB",
                     FbUser = "SYSDBA",
@@ -161,7 +158,7 @@ namespace AdekoDesigner
                         "ADEData", "adeko_render_viewer", "Agrx", "btoolsets",
                         "Fonts", "Help", "Imalat", "lang", "language",
                         "lng", "logs", "Patterns", "Shaders", "tefris",
-                        "xmf_tr", ".git"
+                        "xmf_tr", ".git", "0FİYAT LİSTELERİ"
                     }
                 };
 
