@@ -8,6 +8,7 @@ using System.IO;
 using DevExpress.XtraEditors;
 using AutoUpdaterDotNET;
 using AdekoDesigner.Properties;
+using System.Reflection;
 
 namespace AdekoDesigner
 {
@@ -27,6 +28,7 @@ namespace AdekoDesigner
 
         private Settings settings;
         private AdekoLib adekoLib;
+        private string version;
 
         string filePath;
 
@@ -48,6 +50,9 @@ namespace AdekoDesigner
             this.Size = Properties.Settings.Default.WindowSize;
             this.WindowState = Properties.Settings.Default.WindowState;
 
+            version = getVersion();
+
+            this.Text = this.Text + " - v"  + version;
 
             LoadLibs();
 
@@ -207,6 +212,35 @@ namespace AdekoDesigner
             }
         }
 
+        // Update
+        private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            AutoUpdater.ReportErrors = true ;
+            CheckForUpdate();
+        }
+
+        private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            InfoForm iForm = new InfoForm();
+            iForm.version = version;
+            iForm.ShowDialog(this);
+        }
+
+        private string getVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            // AssemblyFileVersion'ı almak:
+            object[] fileVersionAttributes = assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false);
+            if (fileVersionAttributes.Length > 0)
+            {
+                var fileVersionAttribute = fileVersionAttributes[0] as AssemblyFileVersionAttribute;
+                string fileVersion = fileVersionAttribute.Version;
+                return fileVersion;
+            }
+
+            return "1.0.0.0";
+        }
     }
 
 

@@ -44,8 +44,12 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.textFbUser = new DevExpress.XtraEditors.TextEdit();
             this.textFbPass = new DevExpress.XtraEditors.TextEdit();
+            ((System.ComponentModel.ISupportInitialize)(this.textFolderPath.Properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbDir.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbUser.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbPass.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -107,7 +111,7 @@
             this.textFolderPath.Location = new System.Drawing.Point(99, 2);
             this.textFolderPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textFolderPath.Name = "textFolderPath";
-            this.textFolderPath.Size = new System.Drawing.Size(225, 20);
+            this.textFolderPath.Size = new System.Drawing.Size(225, 28);
             this.textFolderPath.TabIndex = 5;
             this.textFolderPath.ToolTipTitle = "Lütfen Dosya Seçiniz";
             this.textFolderPath.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.textFolderPath_ButtonClick);
@@ -187,7 +191,7 @@
             this.textFbDir.Location = new System.Drawing.Point(124, 2);
             this.textFbDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textFbDir.Name = "textFbDir";
-            this.textFbDir.Size = new System.Drawing.Size(189, 20);
+            this.textFbDir.Size = new System.Drawing.Size(189, 28);
             this.textFbDir.TabIndex = 10;
             this.textFbDir.ToolTipTitle = "Lütfen Dosya Seçiniz";
             // 
@@ -206,7 +210,7 @@
             this.textFbUser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textFbUser.Location = new System.Drawing.Point(124, 39);
             this.textFbUser.Name = "textFbUser";
-            this.textFbUser.Size = new System.Drawing.Size(189, 20);
+            this.textFbUser.Size = new System.Drawing.Size(189, 28);
             this.textFbUser.TabIndex = 12;
             // 
             // textFbPass
@@ -214,7 +218,7 @@
             this.textFbPass.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textFbPass.Location = new System.Drawing.Point(124, 75);
             this.textFbPass.Name = "textFbPass";
-            this.textFbPass.Size = new System.Drawing.Size(189, 20);
+            this.textFbPass.Size = new System.Drawing.Size(189, 28);
             this.textFbPass.TabIndex = 12;
             // 
             // SettingsForm
@@ -228,10 +232,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ayarlar";
             this.Load += new System.EventHandler(this.Settings_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.textFolderPath.Properties)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbDir.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbUser.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textFbPass.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

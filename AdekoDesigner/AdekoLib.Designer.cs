@@ -56,6 +56,7 @@
             this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btnUrGe = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
@@ -68,7 +69,6 @@
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::AdekoDesigner.WaitForm1), true, true);
-            this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1.Panel1)).BeginInit();
             this.splitContainerControl1.Panel1.SuspendLayout();
@@ -399,6 +399,17 @@
             this.gridColumn18.OptionsColumn.AllowFocus = false;
             this.gridColumn18.OptionsColumn.ReadOnly = true;
             // 
+            // gridColumn19
+            // 
+            this.gridColumn19.Caption = "ModülTipi";
+            this.gridColumn19.FieldName = "moduleType";
+            this.gridColumn19.Name = "gridColumn19";
+            this.gridColumn19.OptionsColumn.AllowEdit = false;
+            this.gridColumn19.OptionsColumn.AllowFocus = false;
+            this.gridColumn19.OptionsColumn.ReadOnly = true;
+            this.gridColumn19.Visible = true;
+            this.gridColumn19.VisibleIndex = 11;
+            // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.btnUrGe);
@@ -432,10 +443,12 @@
             this.btnUrGe.Size = new System.Drawing.Size(90, 43);
             this.btnUrGe.TabIndex = 10;
             this.btnUrGe.Text = "UR-GE Bağlan";
+            this.btnUrGe.Visible = false;
             this.btnUrGe.Click += new System.EventHandler(this.btnUrGe_Click);
             // 
             // panelControl4
             // 
+            this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl4.Location = new System.Drawing.Point(410, 2);
             this.panelControl4.Name = "panelControl4";
@@ -489,6 +502,7 @@
             // 
             // panelControl3
             // 
+            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl3.Location = new System.Drawing.Point(2, 2);
             this.panelControl3.Name = "panelControl3";
@@ -555,17 +569,6 @@
             // splashScreenManager1
             // 
             this.splashScreenManager1.ClosingDelay = 500;
-            // 
-            // gridColumn19
-            // 
-            this.gridColumn19.Caption = "ModülTipi";
-            this.gridColumn19.FieldName = "moduleType";
-            this.gridColumn19.Name = "gridColumn19";
-            this.gridColumn19.OptionsColumn.AllowEdit = false;
-            this.gridColumn19.OptionsColumn.AllowFocus = false;
-            this.gridColumn19.OptionsColumn.ReadOnly = true;
-            this.gridColumn19.Visible = true;
-            this.gridColumn19.VisibleIndex = 11;
             // 
             // AdekoLib
             // 
