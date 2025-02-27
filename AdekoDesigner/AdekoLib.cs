@@ -812,7 +812,7 @@ namespace AdekoDesigner
                 string sanitizedDateTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
                 saveFileDialog.FileName = $@"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.xlsx";
 
-                saveFileDialog.InitialDirectory = lastUsedFolderPath;
+                saveFileDialog.RestoreDirectory = true;
 
                 // Kullanıcı bir dosya seçtiyse
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -864,7 +864,7 @@ namespace AdekoDesigner
                 string sanitizedDateTime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
                 saveFileDialog.FileName = $"{libFolderName} Mutfak Modülleri - {sanitizedDateTime}.csv";
 
-                saveFileDialog.InitialDirectory = lastUsedFolderPath;
+                saveFileDialog.RestoreDirectory = true;
 
                 // Kullanıcı bir dosya seçtiyse
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
