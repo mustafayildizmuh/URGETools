@@ -44,12 +44,17 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.textFbUser = new DevExpress.XtraEditors.TextEdit();
             this.textFbPass = new DevExpress.XtraEditors.TextEdit();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.btnSave2 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnCancel2 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.textFolderPath.Properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textFbDir.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textFbUser.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textFbPass.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
+            this.panelControl4.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -75,17 +80,16 @@
             this.richTextBox_IgnoredFolderList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox_IgnoredFolderList.Location = new System.Drawing.Point(99, 39);
             this.richTextBox_IgnoredFolderList.Name = "richTextBox_IgnoredFolderList";
-            this.richTextBox_IgnoredFolderList.Size = new System.Drawing.Size(225, 471);
+            this.richTextBox_IgnoredFolderList.Size = new System.Drawing.Size(371, 472);
             this.richTextBox_IgnoredFolderList.TabIndex = 3;
             this.richTextBox_IgnoredFolderList.Text = "";
             // 
             // btnSave
             // 
-            this.btnSave.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSave.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnSave.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.btnSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSave.ImageOptions.SvgImage")));
-            this.btnSave.Location = new System.Drawing.Point(469, 2);
+            this.btnSave.Location = new System.Drawing.Point(10, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(88, 38);
             this.btnSave.TabIndex = 2;
@@ -94,11 +98,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnCancel.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnCancel.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.btnCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCancel.ImageOptions.SvgImage")));
-            this.btnCancel.Location = new System.Drawing.Point(557, 2);
+            this.btnCancel.Location = new System.Drawing.Point(20, 2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 38);
             this.btnCancel.TabIndex = 3;
@@ -111,7 +114,7 @@
             this.textFolderPath.Location = new System.Drawing.Point(99, 2);
             this.textFolderPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textFolderPath.Name = "textFolderPath";
-            this.textFolderPath.Size = new System.Drawing.Size(225, 28);
+            this.textFolderPath.Size = new System.Drawing.Size(371, 28);
             this.textFolderPath.TabIndex = 5;
             this.textFolderPath.ToolTipTitle = "Lütfen Dosya Seçiniz";
             this.textFolderPath.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.textFolderPath_ButtonClick);
@@ -140,7 +143,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(647, 513);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 514);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // tableLayoutPanel2
@@ -221,11 +224,60 @@
             this.textFbPass.Size = new System.Drawing.Size(189, 28);
             this.textFbPass.TabIndex = 12;
             // 
+            // panelControl4
+            // 
+            this.panelControl4.Controls.Add(this.btnSave2);
+            this.panelControl4.Controls.Add(this.btnCancel2);
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl4.Location = new System.Drawing.Point(0, 463);
+            this.panelControl4.Name = "panelControl4";
+            this.panelControl4.Size = new System.Drawing.Size(793, 51);
+            this.panelControl4.TabIndex = 7;
+            // 
+            // btnSave2
+            // 
+            this.btnSave2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnSave2.Appearance.Options.UseFont = true;
+            this.btnSave2.Appearance.Options.UseTextOptions = true;
+            this.btnSave2.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.btnSave2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSave2.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnSave2.ImageOptions.ImageToTextIndent = 10;
+            this.btnSave2.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnSave2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.btnSave2.Location = new System.Drawing.Point(559, 2);
+            this.btnSave2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSave2.Name = "btnSave2";
+            this.btnSave2.Size = new System.Drawing.Size(133, 47);
+            this.btnSave2.TabIndex = 2;
+            this.btnSave2.Text = "Kaydet";
+            this.btnSave2.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel2
+            // 
+            this.btnCancel2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnCancel2.Appearance.Options.UseFont = true;
+            this.btnCancel2.Appearance.Options.UseTextOptions = true;
+            this.btnCancel2.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.btnCancel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnCancel2.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnCancel2.ImageOptions.ImageToTextIndent = 10;
+            this.btnCancel2.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnCancel2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton2.ImageOptions.SvgImage")));
+            this.btnCancel2.Location = new System.Drawing.Point(692, 2);
+            this.btnCancel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancel2.Name = "btnCancel2";
+            this.btnCancel2.Size = new System.Drawing.Size(99, 47);
+            this.btnCancel2.TabIndex = 3;
+            this.btnCancel2.Text = "İptal";
+            this.btnCancel2.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 513);
+            this.ClientSize = new System.Drawing.Size(793, 514);
+            this.Controls.Add(this.panelControl4);
             this.Controls.Add(this.tableLayoutPanel1);
             this.IconOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("SettingsForm.IconOptions.SvgImage")));
             this.Name = "SettingsForm";
@@ -240,6 +292,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.textFbDir.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textFbUser.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textFbPass.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
+            this.panelControl4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -264,5 +318,8 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit textFbUser;
         private DevExpress.XtraEditors.TextEdit textFbPass;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.SimpleButton btnSave2;
+        private DevExpress.XtraEditors.SimpleButton btnCancel2;
     }
 }
