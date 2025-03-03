@@ -2,7 +2,8 @@
 
 UR-GE MRP/ERP için araçlar.
 
-![image](https://github.com/user-attachments/assets/baf63858-f16d-4743-99e5-600d11cb83f9)
+![image](https://github.com/user-attachments/assets/79c2e755-4052-4f86-95c6-60092b3a7f26)
+
 
 Genel Özellikler:
 * Firebird Veritabanı kopyalayarak backup alma
