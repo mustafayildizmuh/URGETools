@@ -6,6 +6,9 @@ UR-GE MRP/ERP için araçlar.
 
 
 Genel Özellikler:
+* Devexpress Arayüzü
+* Tema desteği
+* Güncelleme Desteği
 * Firebird Veritabanı kopyalayarak backup alma
 * Gfix ile test
 * Restore özellği
