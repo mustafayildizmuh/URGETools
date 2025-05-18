@@ -82,5 +82,89 @@ namespace URGETools.Properties {
                 this["WindowLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastFormsFolderPath {
+            get {
+                return ((string)(this["lastFormsFolderPath"]));
+            }
+            set {
+                this["lastFormsFolderPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastResxFolderPath {
+            get {
+                return ((string)(this["lastResxFolderPath"]));
+            }
+            set {
+                this["lastResxFolderPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CreateBackupCopy {
+            get {
+                return ((bool)(this["CreateBackupCopy"]));
+            }
+            set {
+                this["CreateBackupCopy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseFirebird5 {
+            get {
+                return ((bool)(this["UseFirebird5"]));
+            }
+            set {
+                this["UseFirebird5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FullValidation {
+            get {
+                return ((bool)(this["FullValidation"]));
+            }
+            set {
+                this["FullValidation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Mend {
+            get {
+                return ((bool)(this["Mend"]));
+            }
+            set {
+                this["Mend"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckRewriteFile {
+            get {
+                return ((bool)(this["CheckRewriteFile"]));
+            }
+            set {
+                this["CheckRewriteFile"] = value;
+            }
+        }
     }
 }

@@ -117,6 +117,90 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnBackup.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAtdEVYdFRpdGxlAERCO1NvdXJjZTtTdG9yO2RhdGFz
+        b3VyY2U7RGF0YWJhc2U7RWRpdCj2upwAAAGWSURBVFhHzZWxSsRAFEVT2At2/oGFhaCFtWgZ9ze2lFdt
+        obDmE+z8k4CNxWsX2c6f2NessIVg5MpkCW8yk8xMsrG4ECbz7rkkc5OsqqpsSlkLh5a1cGhZC5AwNXUs
+        TDfC9CBMr8L0JkyfwrQRpm8jXGMN97AHezGD2b2X5nQFOBemJ2FaCVMVKczCA14WxxdgJkzrFsNYwWum
+        Ob4AQ8JrrTXHF2DbYpCqreb4AuxaDFK105x/HWDyVzD5IZy8hgthuh/wQwSvheb4AuAMfAjTszDdJnyK
+        MQsPeAWdgWYLvoTpXZhehGkuTHfCdCZMJ8J0ZIRrrOEe9mAvZjBb+wS1YIwaPmqOL8BPi0GKlnlRZnlR
+        XuZFWRnh2hlgyAa0wfchLLgJMFQNNdwKYcFNgCFqqOHNR98ZILWG1w64DuF8BSk1vOqAN0M4D2FsDV2P
+        XesP7gsQ8zcMhvsChDZgiblQOGYsuAkQUsMoeFcAqG8No+B9AkCnwnRhquiqIcxqiAY74d4AoVKwXvCx
+        AjRDeOFjBugFrwP8AkgqUmMle6KaAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <assembly alias="DevExpress.Data.v22.2" name="DevExpress.Data.v22.2, Version=22.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="btnBackup.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFpEZXZFeHByZXNzLkRhdGEudjIyLjIsIFZlcnNpb249MjIuMi4x
+        Mi4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAAB1E
+        ZXZFeHByZXNzLlV0aWxzLlN2Zy5TdmdJbWFnZQEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAhAgAAAu+7
+        vzw/eG1sIHZlcnNpb249JzEuMCcgZW5jb2Rpbmc9J1VURi04Jz8+DQo8c3ZnIHg9IjBweCIgeT0iMHB4
+        IiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3Jn
+        LzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNw
+        YWNlPSJwcmVzZXJ2ZSIgaWQ9IkZpbGxfRG93biIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAw
+        IDAgMzIgMzIiPg0KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLkJsdWV7ZmlsbDojMTE3N0Q3O30K
+        CS5CbGFja3tmaWxsOiM3MjcyNzI7fQoJLnN0MHtvcGFjaXR5OjAuNTt9Cjwvc3R5bGU+DQogIDxnIGNs
+        YXNzPSJzdDAiPg0KICAgIDxwYXRoIGQ9Ik0yOCwxMHYyMEgyVjEwaDEwdjZINy4zTDE1LDI3LjZMMjIu
+        NywxNkgxOHYtNkgyOHoiIGNsYXNzPSJCbGFjayIgLz4NCiAgPC9nPg0KICA8cGF0aCBkPSJNMjgsOEgy
+        VjJoMjZWOHogTTE0LDEwdjhoLTNsNCw2bDQtNmgtM3YtOEgxNHoiIGNsYXNzPSJCbHVlIiAvPg0KPC9z
+        dmc+Cw==
+</value>
+  </data>
+  <data name="btnRestore.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAtdEVYdFRpdGxlAERCO1NvdXJjZTtTdG9yO2RhdGFz
+        b3VyY2U7RGF0YWJhc2U7RWRpdCj2upwAAAGWSURBVFhHzZWxSsRAFEVT2At2/oGFhaCFtWgZ9ze2lFdt
+        obDmE+z8k4CNxWsX2c6f2NessIVg5MpkCW8yk8xMsrG4ECbz7rkkc5OsqqpsSlkLh5a1cGhZC5AwNXUs
+        TDfC9CBMr8L0JkyfwrQRpm8jXGMN97AHezGD2b2X5nQFOBemJ2FaCVMVKczCA14WxxdgJkzrFsNYwWum
+        Ob4AQ8JrrTXHF2DbYpCqreb4AuxaDFK105x/HWDyVzD5IZy8hgthuh/wQwSvheb4AuAMfAjTszDdJnyK
+        MQsPeAWdgWYLvoTpXZhehGkuTHfCdCZMJ8J0ZIRrrOEe9mAvZjBb+wS1YIwaPmqOL8BPi0GKlnlRZnlR
+        XuZFWRnh2hlgyAa0wfchLLgJMFQNNdwKYcFNgCFqqOHNR98ZILWG1w64DuF8BSk1vOqAN0M4D2FsDV2P
+        XesP7gsQ8zcMhvsChDZgiblQOGYsuAkQUsMoeFcAqG8No+B9AkCnwnRhquiqIcxqiAY74d4AoVKwXvCx
+        AjRDeOFjBugFrwP8AkgqUmMle6KaAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnRestore.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFpEZXZFeHByZXNzLkRhdGEudjIyLjIsIFZlcnNpb249MjIuMi4x
+        Mi4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAAB1E
+        ZXZFeHByZXNzLlV0aWxzLlN2Zy5TdmdJbWFnZQEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAeAgAAAu+7
+        vzw/eG1sIHZlcnNpb249JzEuMCcgZW5jb2Rpbmc9J1VURi04Jz8+DQo8c3ZnIHg9IjBweCIgeT0iMHB4
+        IiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3Jn
+        LzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNw
+        YWNlPSJwcmVzZXJ2ZSIgaWQ9IkZpbGxfVXAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAw
+        IDMyIDMyIj4NCiAgPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5CbHVle2ZpbGw6IzExNzdENzt9Cgku
+        QmxhY2t7ZmlsbDojNzI3MjcyO30KCS5zdDB7b3BhY2l0eTowLjU7fQo8L3N0eWxlPg0KICA8ZyBjbGFz
+        cz0ic3QwIj4NCiAgICA8cGF0aCBkPSJNMjgsMnYyMEgxOHYtNmg0LjdMMTUsNC40TDcuMywxNkgxMnY2
+        SDJWMkgyOHoiIGNsYXNzPSJCbGFjayIgLz4NCiAgPC9nPg0KICA8cGF0aCBkPSJNMjgsMzBIMnYtNmgy
+        NlYzMHogTTE2LDIydi04aDNsLTQtNmwtNCw2aDN2OEgxNnoiIGNsYXNzPSJCbHVlIiAvPg0KPC9zdmc+
+        Cw==
+</value>
+  </data>
+  <data name="btnReset.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFpEZXZFeHByZXNzLkRhdGEudjIyLjIsIFZlcnNpb249MjIuMi4x
+        Mi4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAAB1E
+        ZXZFeHByZXNzLlV0aWxzLlN2Zy5TdmdJbWFnZQEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADXAgAAAu+7
+        vzw/eG1sIHZlcnNpb249JzEuMCcgZW5jb2Rpbmc9J1VURi04Jz8+DQo8c3ZnIHg9IjBweCIgeT0iMHB4
+        IiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3Jn
+        LzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNw
+        YWNlPSJwcmVzZXJ2ZSIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAw
+        IDMyIDMyIj4NCiAgPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5HcmVlbntmaWxsOiMwMzlDMjM7fQoJ
+        LkJsYWNre2ZpbGw6IzcyNzI3Mjt9CgkuUmVke2ZpbGw6I0QxMUMxQzt9CgkuWWVsbG93e2ZpbGw6I0ZG
+        QjExNTt9CgkuQmx1ZXtmaWxsOiMxMTc3RDc7fQoJLldoaXRle2ZpbGw6I0ZGRkZGRjt9Cgkuc3Qwe29w
+        YWNpdHk6MC41O30KCS5zdDF7b3BhY2l0eTowLjc1O30KPC9zdHlsZT4NCiAgPGcgaWQ9IlJlc2V0TGF5
+        b3V0T3B0aW9ucyI+DQogICAgPHBhdGggZD0iTTE2LDRjLTMuMywwLTYuMywxLjMtOC41LDMuNUw0LDR2
+        MTBoMC4yaDQuMUgxNGwtMy42LTMuNkMxMS44LDguOSwxMy44LDgsMTYsOGM0LjQsMCw4LDMuNiw4LDhz
+        LTMuNiw4LTgsOCAgIGMtMy43LDAtNi44LTIuNi03LjctNkg0LjJjMSw1LjcsNS45LDEwLDExLjgsMTBj
+        Ni42LDAsMTItNS40LDEyLTEyUzIyLjYsNCwxNiw0eiIgY2xhc3M9IkdyZWVuIiAvPg0KICA8L2c+DQo8
+        L3N2Zz4L
+</value>
+  </data>
   <data name="chkMend.ToolTip" xml:space="preserve">
     <value>(gfix -mend) komutu, ciddi şekilde bozulmuş Firebird veritabanlarını kurtarmak için kullanılır.
 Ancak, bu komut veri kaybına neden olabilir, çünkü bozuk kayıtları onarırken bazı verileri silebilir
@@ -127,22 +211,6 @@ Genel olarak:
     * Eğer veritabanı bozuk ve açılmıyorsa, önce gfix -v -full ile kontrol edip, ardından gerekirse 
         gfix -mend kullanılmalı.</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnRepair.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAALXRFWHRUaXRsZQBEQjtTb3Vy
-        Y2U7U3RvcjtkYXRhc291cmNlO0RhdGFiYXNlO0VkaXQo9rqcAAABlklEQVRYR82VsUrEQBRFU9gLdv6B
-        hYWghbVoGfc3tpRXbaGw5hPs/JOAjcVrF9nOn9jXrLCFYOTKZAlvMpPMTLKxuBAm8+65JHOTrKqqbEpZ
-        C4eWtXBoWQuQMDV1LEw3wvQgTK/C9CZMn8K0EaZvI1xjDfewB3sxg9m9l+Z0BTgXpidhWglTFSnMwgNe
-        FscXYCZM6xbDWMFrpjm+AEPCa601xxdg22KQqq3m+ALsWgxStdOcfx1g8lcw+SGcvIYLYbof8EMEr4Xm
-        +ALgDHwI07Mw3SZ8ijELD3gFnYFmC76E6V2YXoRpLkx3wnQmTCfCdGSEa6zhHvZgL2YwW/sEtWCMGj5q
-        ji/AT4tBipZ5UWZ5UV7mRVkZ4doZYMgGtMH3ISy4CTBUDTXcCmHBTYAhaqjhzUffGSC1htcOuA7hfAUp
-        NbzqgDdDOA9hbA1dj13rD+4LEPM3DIb7AoQ2YIm5UDhmLLgJEFLDKHhXAKhvDaPgfQJAp8J0YaroqiHM
-        aogGO+HeAKFSsF7wsQI0Q3jhYwboBa8D/AJIKlJjJXuimgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <assembly alias="DevExpress.Data.v22.2" name="DevExpress.Data.v22.2, Version=22.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
   <data name="btnCancel.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFpEZXZFeHByZXNzLkRhdGEudjIyLjIsIFZlcnNpb249MjIuMi4x
@@ -167,6 +235,30 @@ Genel olarak:
   <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="backgroundWorker2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>179, 17</value>
+  </metadata>
+  <data name="simpleButton1.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFpEZXZFeHByZXNzLkRhdGEudjIyLjIsIFZlcnNpb249MjIuMi4x
+        Mi4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI4OGQxNzU0ZDcwMGU0OWEFAQAAAB1E
+        ZXZFeHByZXNzLlV0aWxzLlN2Zy5TdmdJbWFnZQEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAhAwAAAu+7
+        vzw/eG1sIHZlcnNpb249JzEuMCcgZW5jb2Rpbmc9J1VURi04Jz8+DQo8c3ZnIHg9IjBweCIgeT0iMHB4
+        IiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3Jn
+        LzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNw
+        YWNlPSJwcmVzZXJ2ZSIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAw
+        IDMyIDMyIj4NCiAgPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5ZZWxsb3d7ZmlsbDojRkZCMTE1O30K
+        CS5SZWR7ZmlsbDojRDExQzFDO30KCS5CbGFja3tmaWxsOiM3MjcyNzI7fQoJLkJsdWV7ZmlsbDojMTE3
+        N0Q3O30KCS5XaGl0ZXtmaWxsOiNGRkZGRkY7fQoJLkdyZWVue2ZpbGw6IzAzOUMyMzt9Cgkuc3Qwe29w
+        YWNpdHk6MC43NTt9Cgkuc3Qxe29wYWNpdHk6MC41O30KCS5zdDJ7b3BhY2l0eTowLjI1O30KCS5zdDN7
+        ZmlsbDojRkZCMTE1O30KPC9zdHlsZT4NCiAgPGcgLz4NCiAgPGcgaWQ9IlJlbW92ZURhdGFJdGVtcyI+
+        DQogICAgPHBhdGggZD0iTTE4LjEsMjMuMWwtNC40LDQuNGMtMC43LDAuNy0xLjksMC43LTIuNiwwbC02
+        LjYtNi42Yy0wLjctMC43LTAuNy0xLjksMC0yLjZsNC40LTQuNEwxOC4xLDIzLjF6IiBjbGFzcz0iQmx1
+        ZSIgLz4NCiAgICA8cGF0aCBkPSJNMjcuNSwxMy43bC04LDhsLTkuMi05LjJsOC04YzAuNy0wLjcsMS45
+        LTAuNywyLjYsMGw2LjYsNi42QzI4LjIsMTEuOCwyOC4yLDEzLDI3LjUsMTMuN3oiIGNsYXNzPSJSZWQi
+        IC8+DQogIDwvZz4NCjwvc3ZnPgs=
+</value>
+  </data>
   <data name="FirebirdMaintanence.IconOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAMAAABNO5HnAAAABGdBTUEAALGPC/xhBQAAAFRQTFRF7u/v

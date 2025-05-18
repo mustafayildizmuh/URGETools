@@ -27,6 +27,7 @@ namespace URGETools
 
         private Settings settings;
         private FirebirdMaintanence maintanenceForm;
+        private MultiLang_ResGen multiLang_ResGen_Form;
         private string version;
 
         string filePath;
@@ -346,6 +347,25 @@ namespace URGETools
             }
         }
 
+        private void barButtonItem6_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            loadMultiLang_ResGen_Form();
+        }
+
+        private void loadMultiLang_ResGen_Form()
+        {
+            /// multiLang_ResGen_Form formunu oluştur ve göster
+
+            if (multiLang_ResGen_Form != null) multiLang_ResGen_Form.Close();
+            multiLang_ResGen_Form = new MultiLang_ResGen
+            {
+                MdiParent = this,
+                WindowState = FormWindowState.Maximized
+            };
+
+            multiLang_ResGen_Form.Show();
+
+        }
     }
 
 
